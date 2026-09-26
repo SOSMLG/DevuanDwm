@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# network — toggle the NetworkManager connection editor. The quickshell
+# network panel is gone in this fork; nm-connection-editor ships with
+# network-manager-gnome (part of the base packages) and is the stock way
+# to edit WiFi/ethernet profiles on Devuan. Running instance gets closed,
+# otherwise it opens — a true toggle bound to Super+Shift+N.
+
+if pgrep -x nm-connection-editor >/dev/null 2>&1; then
+    pkill -x nm-connection-editor
+else
+    nm-connection-editor &
+fi

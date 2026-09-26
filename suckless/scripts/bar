@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# bar — slstatus helper. slstatus draws the native dwm bar's status text
+# straight into the root window (the status2d patch renders it), so all
+# this has to do is bounce the daemon when the bar misbehaves.
+#   bar restart   kill + relaunch slstatus (default)
+
+case "${1:-restart}" in
+    restart)
+        pkill -x slstatus 2>/dev/null
+        sleep 0.3
+        slstatus &
+        ;;
+    *)
+        echo "usage: bar [restart]" >&2
+        exit 1
+        ;;
+esac

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Shutdown/reboot/logout menu via rofi.
+# Power actions go through loginctl (elogind owns the session on Devuan
+# — no systemd here), falling back to the raw commands if elogind is out
+# to lunch.
+
+ROFI_THEME="$HOME/.config/suckless/rofi/power.rasi"
+
+chosen=$(printf '%s\n' "[Cancel]" "Logout" "Shutdown" "Reboot" | \
+    rofi -dmenu -i -p "Power Menu" -line-padding 4 -hide-scrollbar -theme "$ROFI_THEME")
+
+shutdown_cmd() { loginctl poweroff 2>/dev/null || /sbin/poweroff; }
+reboot_cmd()   { loginctl reboot 2>/dev/null || /sbin/reboot; }
+
+case "$chosen" in
+    "Logout") pkill -x dwm ;;
+    "Shutdown") shutdown_cmd ;;
+    "Reboot") reboot_cmd ;;
+    *) exit 0 ;; # Cancel or invalid input
+esac

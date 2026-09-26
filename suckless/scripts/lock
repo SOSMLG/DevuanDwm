@@ -1,0 +1,5 @@
+#!/bin/sh
+# lock — clean screen lock for dwm. Any stuck flameshot overlay is killed
+# first so it can never reappear on unlock (the sticky screenshot-menu bug).
+pkill -x flameshot 2>/dev/null || true
+exec slock

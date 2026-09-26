@@ -1,0 +1,18 @@
+/* Darkmatter — static palette (bg #121113, accent #e75353).
+ * Grows scattered session-generated versions if wallpaper-theme is
+ * mid-write; the last write always lands on the same six colors anyway. */
+
+* {
+    bg:          #121113;
+    fg:          #ffffff;
+    accent:      #e75353;
+    accent-2:    #999999;
+    border:      #e75353;
+    urgent:      #e75353;
+    selected-fg: #121113;
+    entry-fg:    #999999;
+    prompt-fg:   #e75353;
+    header:      #999999;
+
+    background-color: @bg;
+}

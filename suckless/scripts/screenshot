@@ -1,0 +1,21 @@
+#!/bin/sh
+# screenshot — self-cleaning flameshot wrapper for dwm/sxhkd.
+# Usage: screenshot [full|region|copy]
+#
+# flameshot's client talks to a background daemon it spawns on first use.
+# That daemon survives the client and can re-show its selection overlay
+# (the old "screenshot menu keeps appearing" bug), so once the client
+# exits we kill it again — nothing persists across lock/logout.
+DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}/screenshots"
+mkdir -p "$DIR" 2>/dev/null || DIR="$HOME"
+
+case "${1:-region}" in
+    full) flameshot full -p "$DIR" 2>/dev/null ;;
+    copy) flameshot gui -c 2>/dev/null ;;
+    *)    flameshot gui -p "$DIR" 2>/dev/null ;;
+esac
+
+# Give the daemon a moment to write/flush the capture, then clean it up.
+sleep 2
+pkill -x flameshot 2>/dev/null
+exit 0

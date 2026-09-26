@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# dwm-session — login wrapper (Exec= target in dwm.desktop).
+#
+# dwm spawns terminals itself (termcmd/scratchpads in config.def.h), so
+# session-scoped env must be exported here, before dwm starts — an export
+# in autostart.sh only reaches what that script launches.
+#
+# KITTY_CONFIG_DIRECTORY keeps kitty's config session-local: wallpaper-theme
+# recolors ~/.config/suckless/kitty/current-theme.conf and
+# leave the global ~/.config/kitty alone.
+
+export KITTY_CONFIG_DIRECTORY="$HOME/.config/suckless/kitty"
+exec dwm
