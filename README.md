@@ -1,17 +1,17 @@
+![banner](assets/banner.svg)
+
 # dwm-setup
 
-![Devuan 6](https://img.shields.io/badge/Devuan-6-202329?logo=devuan&logoColor=E8A33D)
-![Debian 13](https://img.shields.io/badge/Debian-13-202329?logo=debian&logoColor=E8A33D)
-![dwm](https://img.shields.io/badge/WM-dwm-202329)
-![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-8FB57A.svg)
+builds a patched dwm desktop for devuan 6 or debian 13 with the native dwm bar, st, dmenu, rofi and a fixed graphite amber palette.
 
-A dark, patched [dwm](https://dwm.suckless.org/) desktop that I actually run every day, built for **Devuan 6 (Excalibur)** and Debian 13 (Trixie). This is the fork — it comes from the justaguy (drew) dwm-setup lineage, but the bar, the theming, and the installer have all been reworked around what I wanted: a static Graphite Amber look, the native dwm bar, and an install path that never touches systemd.
+[read the quick start](#quick-start)
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ae0f66f6-b238-4a94-984b-9c019c4121c1" />
-
-The stack, in one line: dwm 6.8 with 22 patches, slstatus drawing the native bar's status text, st as the default terminal, dmenu and rofi for launching, dunst for notifications, picom for compositing, kitty as a second terminal. Everything shares one palette — graphite `#16181D` with an `#E8A33D` amber accent, in JetBrainsMono Nerd Font.
-
-The bar is dwm's own, the palette is decided once, and colors are never derived from a wallpaper. If that sounds boring, good. It's meant to be.
+| | |
+| --- | --- |
+| **build** | dwm 6.8 with 22 patches, built from source into `/usr/local/bin`. |
+| **bar** | slstatus feeds dwm's own bar. no shell, qml or gpu process for the status text. |
+| **palette** | graphite `#16181d` with amber `#e8a33d`. colors are never derived from a wallpaper. |
+| **init** | openrc and sysvinit only. doas first, sudo as fallback. no systemctl. |
 
 ## What you're getting
 
