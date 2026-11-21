@@ -1,5 +1,10 @@
 # dwm-setup
 
+![Devuan 6](https://img.shields.io/badge/Devuan-6-9B183E?logo=devuan&logoColor=white)
+![Debian 13](https://img.shields.io/badge/Debian-13-A81D33?logo=debian&logoColor=white)
+![dwm](https://img.shields.io/badge/WM-dwm-4B7762)
+![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-green.svg)
+
 A dark, patched [dwm](https://dwm.suckless.org/) desktop that I actually run every day, built for **Devuan 6 (Excalibur)** and Debian 13 (Trixie). This is the fork — it comes from the justaguy (drew) dwm-setup lineage, but the bar, the theming, and the installer have all been reworked around what I wanted: a static Darkmatter look, the native dwm bar, and an install path that never touches systemd.
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ae0f66f6-b238-4a94-984b-9c019c4121c1" />
@@ -19,13 +24,13 @@ The bar is dwm's own, the palette is decided once, and colors are never derived 
 
 Because this is Devuan, the whole thing runs on OpenRC/sysvinit. There is no `systemctl` anywhere in the installer or the steps, and privilege escalation is **doas first, sudo as fallback** — never bare sudo.
 
-## Install
+## Quick start
 
 You want a fairly fresh Devuan 6 or Debian 13 base, and a user that can escalate (doas or sudo). Then:
 
 ```bash
-git clone https://github.com/SOSMLG/dwm-setup.git
-cd dwm-setup
+git clone https://github.com/SOSMLG/DevuanDwm.git
+cd DevuanDwm
 ./install.sh
 ```
 
@@ -42,7 +47,7 @@ Then reboot, pick `dwm` at the LightDM greeter, and press `Super + /` for the ke
 The installer only owns the base system. Once it's done, the app layers come from the step runner:
 
 ```bash
-cd dwm-setup
+cd DevuanDwm
 ./run.sh --list              # what the phases contain
 ./run.sh --phase core,apps   # pick phases
 ./run.sh --only gaming,chat  # or individual steps
@@ -262,4 +267,12 @@ GPL-2.0 — the whole tree, suckless builds and scripts alike. See [LICENSE](LIC
 
 ## Where this lives
 
-The fork is on GitHub: [SOSMLG/dwm-setup](https://github.com/SOSMLG/dwm-setup). The upstream this was cut from is justaguy.dev/drew/dwm-setup, kept around purely as history. There's no wiki; the README, `QUICKSTART.md`, `CHANGELOG.md` and `docs/troubleshooting.md` are the whole story.
+The fork is on GitHub: [SOSMLG/DevuanDwm](https://github.com/SOSMLG/DevuanDwm). The upstream this was cut from is justaguy.dev/drew/dwm-setup, kept around purely as history. There's no wiki; the README, `QUICKSTART.md`, `CHANGELOG.md` and `docs/troubleshooting.md` are the whole story.
+
+## Related repos
+
+- [DebianSway](https://github.com/SOSMLG/DebianSway): Sway on Debian/Devuan.
+- [DevuanSway](https://github.com/SOSMLG/DevuanSway): Sway on Devuan with OpenRC.
+- [Devuan-Kde](https://github.com/SOSMLG/Devuan-Kde): KDE Plasma on Devuan.
+- [devuan-cinnamon-setup](https://github.com/SOSMLG/devuan-cinnamon-setup): Cinnamon on Devuan.
+- [XfceMlg](https://github.com/SOSMLG/XfceMlg): XFCE desktop toolkit.
