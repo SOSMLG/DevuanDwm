@@ -5,7 +5,7 @@
 # Font Installer
 # -------------------------------------------------------
 # Installs: Noto (Latin + Arabic + Emoji), Font Awesome,
-#           JetBrainsMono Nerd Font (the Darkmatter bar/UI font)
+#           JetBrainsMono Nerd Font (the Graphite Amber bar/UI font)
 # =======================================================
 set -uo pipefail
 
@@ -19,7 +19,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 if ! have_priv; then
-    log_err "Neither doas nor sudo found — cannot escalate."
+    log_err "Neither doas nor sudo found -- cannot escalate."
     exit 1
 fi
 
@@ -48,7 +48,7 @@ command -v curl >/dev/null 2>&1 || { log_err "curl is required for the Nerd Font
 log_ok "APT fonts installed"
 
 # ---------------------------------------------------------------------------
-# 2. Nerd Fonts — JetBrainsMono (this fork lives or dies by it: the dwm
+# 2. Nerd Fonts -- JetBrainsMono (this fork lives or dies by it: the dwm
 #    status bar, rofi, dunst and kitty all use "JetBrainsMono Nerd Font")
 # ---------------------------------------------------------------------------
 NERD_FONT_DIR="${HOME}/.local/share/fonts/NerdFonts"
@@ -56,12 +56,12 @@ mkdir -p "$NERD_FONT_DIR"
 
 install_nerd_font() {
     local name="$1"
-    # NOTE: string-test, not `| grep -q` — with `set -o pipefail`, grep -q
+    # NOTE: string-test, not `| grep -q` -- with `set -o pipefail`, grep -q
     # quits on first match while fc-list is still writing, fc-list dies of
     # SIGPIPE and the check spuriously reports "not installed" (re-download
     # loop on every run).
     if [ -n "$(fc-list 2>/dev/null | grep -i "$name")" ]; then
-        log_warn "$name already installed — skipping download"
+        log_warn "$name already installed -- skipping download"
         return 0
     fi
 
@@ -90,12 +90,12 @@ install_nerd_font() {
     expected_sha="$(curl -fsSL --max-time 20 "${download_url}.sha256" 2>/dev/null | awk '{print $1}' | tr 'A-F' 'a-f')"
     if [ -n "$expected_sha" ]; then
         if ! sha256_verify "$font_archive" "$expected_sha"; then
-            log_err "Checksum mismatch — the download may have been tampered with. Removing it."
+            log_err "Checksum mismatch -- the download may have been tampered with. Removing it."
             rm -f "$font_archive"
             return 1
         fi
     else
-        log_warn "Could not fetch upstream .sha256 for $name — relying on the structural check."
+        log_warn "Could not fetch upstream .sha256 for $name -- relying on the structural check."
     fi
 
     log_info "Extracting $name fonts..."
@@ -176,7 +176,7 @@ EOF
 # Backup-first: never silently clobber a hand-tuned fonts.conf.
 if [ -f "$FONTCONF" ] && ! cmp -s "$FONTCONF_TMP" "$FONTCONF"; then
     cp -a "$FONTCONF" "$FONTCONF.bak.$(date +%Y%m%d_%H%M%S)"
-    log_info "  backed up existing fonts.conf → .bak.*"
+    log_info "  backed up existing fonts.conf -> .bak.*"
 fi
 cp "$FONTCONF_TMP" "$FONTCONF"
 log_ok "fonts.conf written"

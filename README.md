@@ -1,15 +1,15 @@
 # dwm-setup
 
-![Devuan 6](https://img.shields.io/badge/Devuan-6-9B183E?logo=devuan&logoColor=white)
-![Debian 13](https://img.shields.io/badge/Debian-13-A81D33?logo=debian&logoColor=white)
-![dwm](https://img.shields.io/badge/WM-dwm-4B7762)
-![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-green.svg)
+![Devuan 6](https://img.shields.io/badge/Devuan-6-202329?logo=devuan&logoColor=E8A33D)
+![Debian 13](https://img.shields.io/badge/Debian-13-202329?logo=debian&logoColor=E8A33D)
+![dwm](https://img.shields.io/badge/WM-dwm-202329)
+![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-8FB57A.svg)
 
-A dark, patched [dwm](https://dwm.suckless.org/) desktop that I actually run every day, built for **Devuan 6 (Excalibur)** and Debian 13 (Trixie). This is the fork — it comes from the justaguy (drew) dwm-setup lineage, but the bar, the theming, and the installer have all been reworked around what I wanted: a static Darkmatter look, the native dwm bar, and an install path that never touches systemd.
+A dark, patched [dwm](https://dwm.suckless.org/) desktop that I actually run every day, built for **Devuan 6 (Excalibur)** and Debian 13 (Trixie). This is the fork — it comes from the justaguy (drew) dwm-setup lineage, but the bar, the theming, and the installer have all been reworked around what I wanted: a static Graphite Amber look, the native dwm bar, and an install path that never touches systemd.
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ae0f66f6-b238-4a94-984b-9c019c4121c1" />
 
-The stack, in one line: dwm 6.8 with 22 patches, slstatus drawing the native bar's status text, st as the default terminal, dmenu and rofi for launching, dunst for notifications, picom for compositing, kitty as a second terminal. Everything shares one palette — near-black `#121113` with a `#e75353` red accent, in JetBrainsMono Nerd Font.
+The stack, in one line: dwm 6.8 with 22 patches, slstatus drawing the native bar's status text, st as the default terminal, dmenu and rofi for launching, dunst for notifications, picom for compositing, kitty as a second terminal. Everything shares one palette — graphite `#16181D` with an `#E8A33D` amber accent, in JetBrainsMono Nerd Font.
 
 The bar is dwm's own, the palette is decided once, and colors are never derived from a wallpaper. If that sounds boring, good. It's meant to be.
 
@@ -127,7 +127,7 @@ The sxhkd layer, when you have it running:
 | `Super + d` | Vesktop (Discord) |
 | `Super + o` | OBS |
 | `Super + Shift + l` | Layout menu (rofi) |
-| `Super + Shift + p` | Wallpaper picker (re-applies Darkmatter) |
+| `Super + Shift + p` | Wallpaper picker (re-applies Graphite Amber) |
 | `Super + Ctrl + r` | Restart slstatus (the `bar` script) |
 | `Super + Shift + n` | Network connection editor (toggle) |
 | `Super + w` / `Shift + w` | Attach / detach focused window in a tab group |
@@ -154,11 +154,11 @@ slstatus writes one line of text — WiFi signal, CPU, RAM, disk, battery and a 
 
 The systray patch is compiled in but switched off (`showsystray = 0`), so slstatus owns the bar without fighting a tray. If you actually want tray icons, flip that to `1` and rebuild. The `bar` script restarts slstatus cleanly — `bar restart`, which is also `Super + Ctrl + r` if sxhkd is up. The dwm bar itself toggles with `Super + Ctrl + b`.
 
-## The look: static Darkmatter
+## The look: static Graphite Amber
 
-There is one palette and it is not negotiable: background `#121113`, red accent `#e75353`, secondary gray `#999999`, white-on-dark text, JetBrainsMono Nerd Font throughout. dwm, st, slstatus, rofi, dunst and kitty all ship with these colors baked in, so even a bare install looks right before anything else runs.
+There is one palette and it is not negotiable: canvas `#16181D`, amber accent `#E8A33D`, muted text `#9A9AA2`, warm light text `#D8D3C8`, JetBrainsMono Nerd Font throughout. dwm, st, slstatus, rofi, dunst and kitty all ship with these colors baked in, so even a bare install looks right before anything else runs.
 
-The wallpaper picker (`wallpaper-theme`, `Super + Shift + p` with sxhkd, or just run the script) still exists, but it doesn't derive colors from the image — there's no extraction engine anymore, and that's the point. It picks one of the bundled Darkmatter wallpapers (`suckless/wallpaper/`: andromeda-2, black-leaves, cozy-red, fog-forest, night-dunes, drop more in and they appear in the dmenu list), then re-applies the same fixed palette:
+The wallpaper picker (`wallpaper-theme`, `Super + Shift + p` with sxhkd, or just run the script) still exists, but it doesn't derive colors from the image — there's no extraction engine anymore, and that's the point. It picks one of the bundled graphite wallpapers (`suckless/wallpaper/`: graphite-amber, andromeda-2, black-leaves, cozy-red, fog-forest, night-dunes, drop more in and they appear in the dmenu list), then re-applies the same fixed palette:
 
 - a marker-bracketed block in `~/.Xresources` for dwm and st colors, then `xrdb -load`;
 - `rofi/colors.rasi`, the dunst `# THEME:` hex lines, and kitty's `current-theme.conf`;
@@ -184,7 +184,7 @@ Everything lives under `~/.config/suckless/`, copied straight from the repo by `
 ├── picom/picom.conf      # compositor (xrender backend by default)
 ├── kitty/                # kitty.conf + current-theme.conf (session-scoped)
 ├── sxhkd/sxhkdrc         # optional app/media key layer (not autostarted)
-├── wallpaper/            # the bundled Darkmatter set
+├── wallpaper/            # the bundled graphite set
 └── scripts/              # autostart, bar, changevolume, dwm-session,
                           # dwm-layout-menu, gen-keybinds, help, network,
                           # power, wallpaper-theme, weather
@@ -229,7 +229,7 @@ Edit `config.def.h`, never the generated `config.h` or `keybindings.txt`. The `w
 | utils | 51-backup.sh | N | Timestamped `~/.config`/dotfiles backup to `dwm-setup-config-backup-*.tar.gz` (+ list/restore) |
 | utils | 52-skel-export.sh | N | Copy per-user defaults (suckless configs, fastfetch, ButterBash, fonts) into `/etc/skel` |
 
-Phase filters: `--phase core,desktop,engineering,apps,utils` (or a subset). `--only` takes names or numbers and matches partial names (`--only gaming` finds `45-gaming.sh`). `--yes` answers every prompt with its default; `--full` is `--yes` with every default forced to Y; `DEBSWAY_ASSUME_YES=1` does the same from the environment. `--verify` closes the loop by running `verify.sh` — a read-only audit that checks group membership, the `/usr/local/bin` suckless binaries, the Darkmatter hex spot-checks in dunst/rofi, OpenRC, the lightdm session and the optional app packages.
+Phase filters: `--phase core,desktop,engineering,apps,utils` (or a subset). `--only` takes names or numbers and matches partial names (`--only gaming` finds `45-gaming.sh`). `--yes` answers every prompt with its default; `--full` is `--yes` with every default forced to Y; `DEBSWAY_ASSUME_YES=1` does the same from the environment. `--verify` closes the loop by running `verify.sh` — a read-only audit that checks group membership, the `/usr/local/bin` suckless binaries, the Graphite Amber hex spot-checks in dunst/rofi, OpenRC, the lightdm session and the optional app packages.
 
 The engineering trio is worth calling out: 30 covers the MathWorks-free side (Octave, notebooks, the SciPy stack and a small `~/.local/venv/eng` that holds python-control so it never touches apt), 31 brings in the heavy EDA tools, and 32 doesn't install Matlab itself — MathWorks needs your account for that — it installs `matlab-support` and drops a `matlab-install` helper in `~/.local/bin` that verifies and attaches a downloaded MathWorks `.deb` with `dpkg -i`.
 
@@ -279,4 +279,4 @@ The fork is on GitHub: [SOSMLG/DevuanDwm](https://github.com/SOSMLG/DevuanDwm). 
 
 ## Repository standard
 
-This repo follows the SOSMLG standard: [contributing](CONTRIBUTING.md), [security](SECURITY.md), [changelog](CHANGELOG.md). Local workflow: [English guide](https://github.com/SOSMLG/.github/blob/main/docs/GIT_GUIDE.md) / [Arabic guide](https://github.com/SOSMLG/.github/blob/main/docs/GIT_GUIDE.ar.md).
+This repo follows the SOSMLG standard: [contributing](CONTRIBUTING.md), [security](SECURITY.md), [changelog](CHANGELOG.md). Local workflow: [English guide](https://github.com/SOSMLG/.github/blob/main/docs/GIT_GUIDE.md) / [Arabic guide](https://github.com/SOSMLG/.github/blob/main/docs/GIT_GUIDE.ar.md). Visual standard: [theme](https://github.com/SOSMLG/.github/blob/main/docs/THEME.md) / [الطابع البصري](https://github.com/SOSMLG/.github/blob/main/docs/THEME.ar.md).

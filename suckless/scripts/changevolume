@@ -2,7 +2,7 @@
 
 # changevolume - volume control with on-screen notification.
 # Uses dunst's `progress_bar = true` rendering via the int:value hint, with
-# `progress_bar_*` colors fixed in the Darkmatter dunstrc.
+# `progress_bar_*` colors fixed in the Graphite Amber dunstrc.
 #
 # Usage: changevolume {up|down|mute}
 

@@ -3,8 +3,8 @@
 This is the working copy of the dwm daily-driver kit for Devuan 6
 (excalibur) / Debian 13 (trixie). It was forked from the justaguy.dev
 dwm-setup lineage, but the runtime has changed: the quickshell bar is
-gone (native dwm bar + slstatus), the rice is **static Darkmatter**
-(near-black `#121113`, red accent `#e75353`, JetBrainsMono Nerd Font),
+gone (native dwm bar + slstatus), the rice is **static Graphite Amber**
+(graphite `#16181D`, amber accent `#E8A33D`, JetBrainsMono Nerd Font),
 and there is no wallpaper-driven theme engine — `wallpaper-theme`
 applies the same six colors to Xresources/rofi/dunst/kitty from the
 bundled wallpapers in `suckless/wallpaper/`.
@@ -30,11 +30,11 @@ When working on this repo:
 - **Configs.** `suckless/*` is canonical and mirrors `~/.config/suckless`
   on the live box. dwm/st/slstatus/dmenu/tabbed build from their
   directories under `$HOME/.config/suckless` after config-copy; the
-  Darkmatter palette in `config.def.h` is the source of truth for hexes.
+  Graphite Amber palette in `config.def.h` is the source of truth for hexes.
   Keep `keybindings.txt` in sync (the dwm Makefile regenerates it via
   `scripts/gen-keybinds`).
 - **Verification.** `./verify.sh` is a read-only audit (groups, installed
-  binaries, Darkmatter hexes, services). Run it after touching configs
+  binaries, Graphite Amber hexes, services). Run it after touching configs
   or steps; `run.sh --verify` wraps it.
 - **No AI tells.** This is a published fork — keep comments concrete and
   varied (say *what* and *why*, never a documentarian's monotone), no

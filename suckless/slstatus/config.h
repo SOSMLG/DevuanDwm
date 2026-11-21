@@ -74,14 +74,14 @@ static const char miccmd[] = "[ $(pactl get-source-mute @DEFAULT_SOURCE@ | awk '
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{ wifi_perc,    "^c#999999^ 󰤨 ^c#FFFFFF^%s%% ", "wlan0" },
-	{ cpu_perc,     "^c#e75353^ 󰻠 ^c#FFFFFF^%s%% ", NULL },
-	{ ram_perc,     "^c#999999^ 󰍛 ^c#FFFFFF^%s%% ", NULL },
-	{ disk_perc,    "^c#fbcb97^ 󰋊 ^c#FFFFFF^%s%% ", "/" },
-	{ run_command,  "^c#e75353^ 󰕾 ^c#FFFFFF^%s ", volcmd },
-	{ run_command,  "^c#999999^ 󰍬 ^c#FFFFFF^%s ", miccmd },
-	{ battery_perc, "^c#5f8787^ 󰁹 ^c#FFFFFF^%s%% ", "BAT0" },
-	{ battery_state,"^c#e75353^ 󰂄 ^c#FFFFFF^%s ", "BAT0" },
-	{ datetime,     "^c#c1c1c1^ 󰸗 ^c#FFFFFF^%s ", "%a %b %-d" },
-	{ datetime,     "^c#ffffff^ 󰥔 ^c#FFFFFF^%s  ", "%-l:%M %p" },
+	{ wifi_perc,    "^c#9A9AA2^ 󰤨 ^c#FFFFFF^%s%% ", "wlan0" },
+	{ cpu_perc,     "^c#E8A33D^ 󰻠 ^c#FFFFFF^%s%% ", NULL },
+	{ ram_perc,     "^c#9A9AA2^ 󰍛 ^c#FFFFFF^%s%% ", NULL },
+	{ disk_perc,    "^c#8FB57A^ 󰋊 ^c#FFFFFF^%s%% ", "/" },
+	{ run_command,  "^c#E8A33D^ 󰕾 ^c#FFFFFF^%s ", volcmd },
+	{ run_command,  "^c#9A9AA2^ 󰍬 ^c#FFFFFF^%s ", miccmd },
+	{ battery_perc, "^c#7E9DB5^ 󰁹 ^c#FFFFFF^%s%% ", "BAT0" },
+	{ battery_state,"^c#E8A33D^ 󰂄 ^c#FFFFFF^%s ", "BAT0" },
+	{ datetime,     "^c#D8D3C8^ 󰸗 ^c#FFFFFF^%s ", "%a %b %-d" },
+	{ datetime,     "^c#D8D3C8^ 󰥔 ^c#FFFFFF^%s  ", "%-l:%M %p" },
 	};

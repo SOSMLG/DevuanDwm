@@ -74,7 +74,7 @@ auditing against the sway-switch effort.
 This is the fork: a Devuan-first rework of the dwm setup, published as
 SOSMLG/dwm-setup. The headline change is direction, not just code — the
 project moved from a Qt bar with live, wallpaper-derived theming to a static
-Darkmatter dwm with the native bar.
+Graphite Amber dwm with the native bar.
 
 ### Changed
 - **The bar is native again.** quickshell (and `quickshell-network`) are
@@ -83,12 +83,12 @@ Darkmatter dwm with the native bar.
   1, `showsystray` to 0 so slstatus owns the bar; the systray patch stays in
   the tree but off. The old `Super + Ctrl + b` toggle now just toggles the
   native bar.
-- **Static Darkmatter theming replaces the wallpaper-driven engine.** The
+- **Static Graphite Amber theming replaces the wallpaper-driven engine.** The
   QML palette extraction (beacon detection, semantic ANSI slots,
   pre-generated palettes) is removed. The palette is fixed — background
-  `#121113`, accent `#e75353`, JetBrainsMono Nerd Font — and compiled into
+  `#16181D`, accent `#E8A33D`, JetBrainsMono Nerd Font — and compiled into
   every config. The `wallpaper-theme` script survives but now re-applies
-  that same palette from a bundled set of matching Darkmatter wallpapers
+  that same palette from a bundled set of matching graphite wallpapers
   (`suckless/wallpaper/`) to Xresources (dwm + st), rofi, dunst and kitty.
   GTK is no longer recolored; dunst respawn and the `_DWM_RELOADCOLORS`
   in-place recolor are kept.
@@ -124,7 +124,7 @@ Darkmatter dwm with the native bar.
   the DebianSway lineage.
 - **`verify.sh`** is a read-only end-state audit: group membership,
   `/usr/local/bin` suckless binaries (dwm, st, slstatus, tabbed, dmenu),
-  Darkmatter hex spot-checks in dunstrc and rofi, OpenRC presence, the
+  Graphite Amber hex spot-checks in dunstrc and rofi, OpenRC presence, the
   lightdm `user-session=dwm` wiring, and optional package checks.
 - **Login wiring:** LightDM greeter with `user-session=dwm`, session
   wrapper `/usr/local/bin/dwm-session`, Thunar "Open Terminal Here" via a
@@ -144,7 +144,7 @@ Darkmatter dwm with the native bar.
 
 ### Added
 - `suckless/dmenu/` (built with the other five tools).
-- `suckless/wallpaper/` — the bundled Darkmatter wallpaper set.
+- `suckless/wallpaper/` — the bundled graphite wallpaper set.
 - The `weather` script (rofi front-end for the bar's weather readout, state
   in two plain files).
 
@@ -155,7 +155,7 @@ Darkmatter dwm with the native bar.
 > **Fork note (2026-09-24):** this entry describes wallpaper-derived live
 > theming — beacon-aware palette extraction, semantic ANSI slots, palettes
 > pre-generated from the default wallpaper. None of that exists in the
-> fork, which uses the static Darkmatter palette described above. The
+> fork, which uses the static Graphite Amber palette described above. The
 > `wallpaper-theme` concurrency lock and the `_DWM_RELOADCOLORS` in-place
 > recolor do survive, in adapted form.
 
@@ -298,7 +298,7 @@ cd ~/.config/suckless/dwm && rm -f config.h && sudo make clean install
 
 > **Fork note (2026-09-24):** the 12-theme switcher (`dwm-thememenu`,
 > `Super + Shift + T`) and `suckless/dwm/themes/` are gone in the fork —
-> there is one theme, static Darkmatter. The xresources patch, status2d,
+> there is one theme, static Graphite Amber. The xresources patch, status2d,
 > ewmhtags, scratchtagwins, dwmtabs and the custom features below
 > (columnlayout, togglefollow, resizefocused, 12 tags) all remain, as does
 > `modifications.txt` §13 for the Xresources color names. The rebuild
@@ -314,7 +314,7 @@ cd ~/.config/suckless/tabbed   && rm -f config.h && sudo make clean install
 ```
 
 ### Added
-- **Theme system**: 12 themes under `suckless/dwm/themes/` (catppuccin, doomone, dracula, everforest, github_dark, gruvbox, kanagawa, monokai, moonfly, nord, retro, rose_pine). Bound to `Super + Shift + t` via the new `dwm-thememenu` rofi script. Each theme directory holds `dwm.xresources`, `theme.conf` (wallpaper + ghostty/wezterm/GTK/icon/dunst metadata) and `colors.rasi`. Theme switching merges Xresources, swaps wallpaper / dunst / rofi / ghostty / wezterm / GTK, signals `st` (SIGUSR1) for live recolor, and `pkill -HUP dwm` to re-exec with `preserveonrestart`.
+- **Theme system**: 12 themes under `suckless/dwm/themes/` (graphite-amber, doomone, dracula, everforest, github_dark, gruvbox, kanagawa, monokai, moonfly, nord, retro, rose_pine). Bound to `Super + Shift + t` via the new `dwm-thememenu` rofi script. Each theme directory holds `dwm.xresources`, `theme.conf` (wallpaper + ghostty/wezterm/GTK/icon/dunst metadata) and `colors.rasi`. Theme switching merges Xresources, swaps wallpaper / dunst / rofi / ghostty / wezterm / GTK, signals `st` (SIGUSR1) for live recolor, and `pkill -HUP dwm` to re-exec with `preserveonrestart`.
 - **xresources patch**: dwm reads `dwm.normbgcolor`, `dwm.selbgcolor`, etc. from `~/.Xresources` at startup; restart with `Super + Shift + r` to pick up new values.
 - **statusallmons patch**: status bar draws on every monitor, gated by a `statusallmons` config constant.
 - **fakefullscreen patch**: `lockfullscreen = 0` plus tighter `_NET_WM_STATE_TOGGLE` handling.

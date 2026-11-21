@@ -54,11 +54,11 @@ number accordingly.
   to each binding.
 - New dwm patches go in `suckless/dwm/patches/` and get a row in
   `suckless/dwm/modifications.txt` where applicable.
-- If you touch the Darkmatter palette, you touched everything: the hexes
+- If you touch the Graphite Amber palette, you touched everything: the hexes
   clear across `dwm/config.def.h`, `slstatus/config.h`, `st/config.def.h`,
   `rofi/colors.rasi`, `dunst/dunstrc` (`# THEME:` markers), kitty's
   `current-theme.conf` and `wallpaper-theme` itself. `verify.sh` spot-checks
-  `#121113` / `#e75353` in dunst and rofi, and it will tell you.
+  `#16181D` / `#E8A33D` in dunst and rofi, and it will tell you.
 
 ## Before you push
 

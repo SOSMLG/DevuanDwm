@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # =======================================================
-# Verify Setup — end-state audit (read-only)
+# Verify Setup -- end-state audit (read-only)
 # -------------------------------------------------------
 # One-pass check of the toolkit's expected end state:
-# group membership, dwm/slstatus/st builds, the Darkmatter
+# group membership, dwm/slstatus/st builds, the Graphite Amber
 # config set, engineering stack, app defaults, and services.
 # Run via `run.sh --verify` or standalone after a run.
 #
@@ -42,7 +42,7 @@ pkg() {  # pkg <name> [critical|optional]
     elif [ "$level" = "optional" ]; then
         state="warn"; detail="not installed (optional)"
     else
-        state="fail"; detail="missing — re-run the relevant script"
+        state="fail"; detail="missing -- re-run the relevant script"
     fi
     report "$name" "$state" "$detail"
 }
@@ -55,7 +55,7 @@ bin() {  # bin <command> [critical|optional]
     elif [ "$level" = "optional" ]; then
         state="warn"; detail="not installed (optional)"
     else
-        state="fail"; detail="missing — re-run the relevant script"
+        state="fail"; detail="missing -- re-run the relevant script"
     fi
     report "bin: $name" "$state" "$detail"
 }
@@ -68,7 +68,7 @@ cfg() {  # cfg <label> <path> [critical|optional]
     elif [ "$level" = "optional" ]; then
         state="warn"; detail="missing (optional)"
     else
-        state="fail"; detail="missing — re-run the relevant script"
+        state="fail"; detail="missing -- re-run the relevant script"
     fi
     report "cfg: $label" "$state" "$detail"
 }
@@ -113,7 +113,7 @@ for p in dwm st slstatus tabbed; do
     if [ -x "/usr/local/bin/$p" ]; then
         report "suckless: $p" ok "/usr/local/bin/$p"
     else
-        report "suckless: $p" fail "not built — re-run install.sh"
+        report "suckless: $p" fail "not built -- re-run install.sh"
     fi
 done
 if [ -x /usr/local/bin/dmenu ]; then
@@ -122,7 +122,7 @@ else
     report "suckless: dmenu" warn "/usr/local/bin/dmenu missing (re-run install.sh)"
 fi
 
-# --- 3. Darkmatter config set (suckless dir) ---------------------------------
+# --- 3. Graphite Amber config set (suckless dir) ---------------------------------
 SC="$HOME/.config/suckless"
 cfg "dwm/config.def.h" "$SC/dwm/config.def.h"
 cfg "slstatus/config.h" "$SC/slstatus/config.h"
@@ -132,17 +132,17 @@ cfg "kitty kitty.conf" "$SC/kitty/kitty.conf"
 cfg "picom/picom.conf" "$SC/picom/picom.conf"
 cfg "sxhkdrc" "$SC/sxhkd/sxhkdrc"
 
-# Darkmatter does not just expect files — the colors are the identity.
+# Graphite Amber does not just expect files -- the colors are the identity.
 # Spot-check the two most recognizable hexes in the shipped configs.
-if grep -q "121113" "$SC/dunst/dunstrc" 2>/dev/null; then
-    report "darkmatter: dunst bg" ok
+if grep -q "16181D" "$SC/dunst/dunstrc" 2>/dev/null; then
+    report "graphite-amber: dunst bg" ok
 else
-    report "darkmatter: dunst bg" warn "not #121113 — re-run the theme step"
+    report "graphite-amber: dunst bg" warn "not #16181D - re-run the theme step"
 fi
-if grep -q "e75353" "$SC/rofi/colors.rasi" 2>/dev/null; then
-    report "darkmatter: rofi accent" ok
+if grep -q "e8a33d" "$SC/rofi/colors.rasi" 2>/dev/null; then
+    report "graphite-amber: rofi accent" ok
 else
-    report "darkmatter: rofi accent" warn "not #e75353 — re-run the theme step"
+    report "graphite-amber: rofi accent" warn "not #E8A33D - re-run the theme step"
 fi
 
 # --- 3b. Screenshot / lock self-clean (the sticky-overlay fix) --------------
@@ -174,7 +174,7 @@ fi
 if command -v rc-update >/dev/null 2>&1 || [ -x /usr/sbin/rc-update ]; then
     report "init: OpenRC" ok "rc-update present"
 else
-    report "init: OpenRC" fail "no rc-update — Devuan expected, check install"
+    report "init: OpenRC" fail "no rc-update -- Devuan expected, check install"
 fi
 cfg "dwm session desktop" "/usr/share/xsessions/dwm.desktop"
 cfg "dwm-session wrapper" "/usr/local/bin/dwm-session"
@@ -231,7 +231,7 @@ pkg neovim optional
 
 # --- 7. Services -----------------------------------------------------------
 # lightdm is the install.sh default, but a startx-launched dwm session
-# (dwm-session wrapper) is equally supported — a missing DM is a warning,
+# (dwm-session wrapper) is equally supported -- a missing DM is a warning,
 # not a failure.
 service_state lightdm lightdm optional
 service_state bluetooth bluetoothd optional
@@ -243,7 +243,7 @@ echo
 echo -e "${GREEN}  ${PASS} passed${NC}, ${RED}${FAIL} failed${NC}, ${YELLOW}${WARN} warnings${NC}"
 if [ "$FAIL" -gt 0 ]; then
     echo
-    log_err "Some checks failed — see lines above, then re-run the relevant step."
+    log_err "Some checks failed -- see lines above, then re-run the relevant step."
     exit 1
 fi
 exit 0

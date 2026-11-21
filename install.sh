@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# dwm-setup — Devuan 6 (Excalibur) + dwm
+# dwm-setup -- Devuan 6 (Excalibur) + dwm
 # https://github.com/SOSMLG/dwm-setup
 #
 # One-command, unattended installer: packages, config, suckless builds,
 # session wrapper, lightdm, Thunar helper. App phases (engineering,
 # desktop apps, media, gaming, chat, editors) run separately via
-# `./run.sh --full` — this file owns the base system only.
+# `./run.sh --full` -- this file owns the base system only.
 #
 # Devuan-safe by construction: no `apt upgrade` (you pick the upgrade
 # moment), no systemctl (OpenRC/sysvinit via start_service), no install
@@ -64,13 +64,13 @@ if [ "$ONLY_CONFIG" = false ]; then
             *) die "Unsupported OS: ${PRETTY_NAME:-unknown}. This installer requires a Debian 13 (trixie) base, or Devuan 6 (excalibur) (found: ${DEBIAN_BASE:-no /etc/debian_version})." ;;
         esac
     else
-        msg "Devuan detected: ${PRETTY_NAME:-unknown} — OpenRC service handling active."
+        msg "Devuan detected: ${PRETTY_NAME:-unknown} -- OpenRC service handling active."
     fi
 fi
 
 # --- Banner -----------------------------------------------------------------
 clear
-msg "\n  dwm-setup — the Darkmatter dwm daily driver\n"
+msg "\n  dwm-setup -- the Graphite Amber dwm daily driver\n"
 msg "  https://github.com/SOSMLG/dwm-setup\n"
 msg "  Packaging for Devuan 6 (excalibur) / Debian 13 (trixie)\n"
 
@@ -101,8 +101,8 @@ PACKAGES=(
     # audio (pulseaudio-utils: pactl/paplay for the bar's mic pill + chime)
     pavucontrol pulsemixer pamixer pipewire-audio pulseaudio-utils
 
-    # utilities (redshift: night light · brightnessctl: panel slider on
-    # laptops · sound-theme-freedesktop: pomodoro alarm sound)
+    # utilities (redshift: night light - brightnessctl: panel slider on
+    # laptops - sound-theme-freedesktop: pomodoro alarm sound)
     avahi-daemon acpi acpid xfce4-power-manager
     flameshot qimgv xdg-user-dirs-gtk fd-find
     redshift brightnessctl sound-theme-freedesktop
@@ -126,14 +126,14 @@ fi
 
 if [ "$ONLY_CONFIG" = false ]; then
     # === One password prompt, cached for the whole run =====================
-    msg "Priming privilege escalation (doas persist) — one prompt, then cached..."
+    msg "Priming privilege escalation (doas persist) -- one prompt, then cached..."
     ensure_doas_persist "$ACTUAL_USER"
 
     # !== no bare apt upgrade ================================================
     # The user picks the upgrade moment; boxes that want updates run
     # `run.sh`'s daily-list refresh + their own upgrade on demand.
     msg "Updating package lists only (no upgrade) ..."
-    apt_update || { log_warn "apt-get update failed — continuing anyway (stale lists may break installs)."; }
+    apt_update || { log_warn "apt-get update failed -- continuing anyway (stale lists may break installs)."; }
 
     # Purge the distro dwm (6.5) so /usr/bin/dwm never shadows our build
     # in /usr/local/bin, and no upgrade resurrects stock dwm.desktop.
@@ -144,7 +144,7 @@ if [ "$ONLY_CONFIG" = false ]; then
 
     msg "Installing packages..."
     install_pkgs "dwm-setup base packages" "${PACKAGES[@]}" \
-        || log_warn "Some packages failed to install — see the log."
+        || log_warn "Some packages failed to install -- see the log."
 
     # === Services (OpenRC on Devuan) ========================================
     start_service avahi-daemon
@@ -180,7 +180,7 @@ else
 fi
 
 # === Config =================================================================
-# Shipped configs carry the static Darkmatter look; the wallpaper picker
+# Shipped configs carry the static Graphite Amber look; the wallpaper picker
 # (wallpaper-theme) re-applies it from any of the bundled wallpapers.
 
 # Handle existing config: always back up before touching it.
@@ -207,19 +207,19 @@ cp -r "$SCRIPT_DIR"/suckless/* "$CONFIG_DIR"/ || die "Failed to copy configs"
 # === Build suckless tools ===================================================
 # dwm, slstatus, st, tabbed and dmenu all build from the repo copy. The
 # xresources patch reads ~/.Xresources at dwm startup, so a bare install
-# (no wallpaper-theme run yet) still gets the Darkmatter colors compiled in.
+# (no wallpaper-theme run yet) still gets the Graphite Amber colors compiled in.
 msg "Building suckless tools..."
 for tool in dwm slstatus st tabbed dmenu; do
     cd "$CONFIG_DIR/$tool" || die "Cannot find $tool"
     if make >/dev/null && priv make install >/dev/null; then
-        msg "  ✓ built $tool"
+        msg "  + built $tool"
     else
         die "Failed to build $tool"
     fi
 done
 
 # === Session wrapper ========================================================
-# Exports session-scoped env (KITTY_CONFIG_DIRECTORY) before dwm starts —
+# Exports session-scoped env (KITTY_CONFIG_DIRECTORY) before dwm starts --
 # autostart.sh can't reach dwm's own spawn() children.
 priv install -m755 "$CONFIG_DIR/scripts/dwm-session" /usr/local/bin/dwm-session
 
@@ -275,7 +275,7 @@ else
     echo 'TerminalEmulator=kitty' >> "$HOME/.config/xfce4/helpers.rc"
 fi
 
-# Thunar custom action (right-click menu) — only seeded if the user has none,
+# Thunar custom action (right-click menu) -- only seeded if the user has none,
 # so existing custom actions are never clobbered.
 if [ ! -f "$HOME/.config/Thunar/uca.xml" ]; then
     mkdir -p "$HOME/.config/Thunar"

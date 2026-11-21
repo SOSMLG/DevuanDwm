@@ -50,8 +50,8 @@ super + o
 super + shift + l
 	~/.config/suckless/scripts/dwm-layout-menu.sh
 
-# Wallpaper picker (dmenu over the bundled darkmatter set, then applies
-# the static Darkmatter palette to Xresources/rofi/dunst/kitty)
+# Wallpaper picker (dmenu over the bundled graphite set, then applies
+# the static Graphite Amber palette to Xresources/rofi/dunst/kitty)
 super + shift + p
 	~/.config/suckless/scripts/wallpaper-theme
 

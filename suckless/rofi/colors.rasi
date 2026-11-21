@@ -1,18 +1,18 @@
-/* Darkmatter — static palette (bg #121113, accent #e75353).
+/* Graphite Amber -- static palette (bg #16181D, accent #E8A33D).
  * Grows scattered session-generated versions if wallpaper-theme is
  * mid-write; the last write always lands on the same six colors anyway. */
 
 * {
-    bg:          #121113;
-    fg:          #ffffff;
-    accent:      #e75353;
-    accent-2:    #999999;
-    border:      #e75353;
-    urgent:      #e75353;
-    selected-fg: #121113;
-    entry-fg:    #999999;
-    prompt-fg:   #e75353;
-    header:      #999999;
+    bg:          #16181D;
+    fg:          #D8D3C8;
+    accent:      #E8A33D;
+    accent-2:    #9A9AA2;
+    border:      #E8A33D;
+    urgent:      #E8A33D;
+    selected-fg: #16181D;
+    entry-fg:    #9A9AA2;
+    prompt-fg:   #E8A33D;
+    header:      #9A9AA2;
 
     background-color: @bg;
 }

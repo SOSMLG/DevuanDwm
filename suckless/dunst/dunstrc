@@ -13,7 +13,7 @@
     padding = 15
     horizontal_padding = 15
     frame_width = 3
-    frame_color = "#e75353"  # THEME: dunst_frame_global
+    frame_color = "#E8A33D"  # THEME: dunst_frame_global
     separator_color = auto
     sort = yes
     idle_threshold = 120
@@ -78,22 +78,22 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#121113"  # THEME: dunst_bg_low
-    foreground = "#333333"  # THEME: dunst_fg_low
-    frame_color = "#e75353"  # THEME: dunst_frame_low
+    background = "#16181D"  # THEME: dunst_bg_low
+    foreground = "#30343B"  # THEME: dunst_fg_low
+    frame_color = "#E8A33D"  # THEME: dunst_frame_low
     timeout = 10
-    highlight = "#999999"  # THEME: dunst_highlight_low
+    highlight = "#9A9AA2"  # THEME: dunst_highlight_low
 
 [urgency_normal]
-    background = "#121113"  # THEME: dunst_bg_normal
-    foreground = "#c1c1c1"  # THEME: dunst_fg_normal
-    frame_color = "#e75353"  # THEME: dunst_frame_normal
+    background = "#16181D"  # THEME: dunst_bg_normal
+    foreground = "#D8D3C8"  # THEME: dunst_fg_normal
+    frame_color = "#E8A33D"  # THEME: dunst_frame_normal
     timeout = 10
-    highlight = "#e75353"  # THEME: dunst_highlight_normal
+    highlight = "#E8A33D"  # THEME: dunst_highlight_normal
 
 [urgency_critical]
-    background = "#121113"  # THEME: dunst_bg_critical
-    foreground = "#ffffff"  # THEME: dunst_fg_critical
-    frame_color = "#e75353"  # THEME: dunst_frame_critical
+    background = "#16181D"  # THEME: dunst_bg_critical
+    foreground = "#D8D3C8"  # THEME: dunst_fg_critical
+    frame_color = "#E8A33D"  # THEME: dunst_frame_critical
     timeout = 30
-    highlight = "#e75353"  # THEME: dunst_highlight_critical
+    highlight = "#E8A33D"  # THEME: dunst_highlight_critical

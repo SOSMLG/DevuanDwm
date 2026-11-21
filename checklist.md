@@ -36,7 +36,7 @@ To re-test just the config side on an already-built box, `./install.sh
 ## Phase 3 — Core dwm bindings
 
 - [ ] `Super + Return` → **st** opens (not kitty)
-- [ ] `Super + p` → dmenu opens, Darkmatter colors (`-nb #121113`, `-sb #e75353`)
+- [ ] `Super + p` → dmenu opens, Graphite Amber colors (`-nb #16181D`, `-sb #E8A33D`)
 - [ ] `Print` → flameshot region screenshot lands in `~/Screenshots/`
 - [ ] `Super + j` / `k` focus next/prev window; `Super + Shift + j` / `k` move in stack
 - [ ] `Super + q` closes the focused window
@@ -91,10 +91,10 @@ To re-test just the config side on an already-built box, `./install.sh
 ## Phase 10 — Wallpaper / theming
 
 - [ ] Start sxhkd, then `Super + Shift + p` → dmenu lists the 5 bundled wallpapers
-- [ ] Pick one — wallpaper changes, dunst respawns with the Darkmatter frame, dwm recolors in place (no re-exec)
+- [ ] Pick one — wallpaper changes, dunst respawns with the amber frame, dwm recolors in place (no re-exec)
 - [ ] `~/.Xresources` has one `! BEGIN dwm-thememenu` … `! END dwm-thememenu` block, no stacking after repeated picks
-- [ ] `grep e75353 ~/.config/suckless/rofi/colors.rasi` matches; `~/.cache/dwm/current_wallpaper` holds the pick
-- [ ] New st and kitty windows use the palette; `xrdb -query` shows `dwm.selbgcolor: #e75353`
+- [ ] `grep E8A33D ~/.config/suckless/rofi/colors.rasi` matches; `~/.cache/dwm/current_wallpaper` holds the pick
+- [ ] New st and kitty windows use the palette; `xrdb -query` shows `dwm.selbgcolor: #E8A33D`
 - [ ] `autostart.sh` now sets the picked wallpaper; logout/login keeps it
 
 ## Phase 11 — sxhkd layer (optional daemon)
@@ -120,7 +120,7 @@ On the test box, run the full kit and confirm the audit passes:
 - [ ] verify.sh: 0 FAIL (warnings allowed for optional apps you skipped)
 - [ ] Groups: `id -nG` includes input, video, render, plugdev after a reboot
 - [ ] `/usr/local/bin` holds dwm, st, slstatus, tabbed, dmenu
-- [ ] Darkmatter spot-checks pass (dunst `#121113`, rofi `#e75353`)
+- [ ] Graphite Amber spot-checks pass (dunst `#16181D`, rofi `#E8A33D`)
 - [ ] Spot-check a step: `octave --version`, `python3 -c "import control"` inside `~/.local/venv/eng`, `codium --version`, `opencode --version` (if you ran those phases)
 - [ ] A second run of `./run.sh --full` is a no-op apart from re-checks (idempotence)
 

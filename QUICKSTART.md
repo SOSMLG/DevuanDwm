@@ -1,4 +1,4 @@
-# QUICKSTART — dwm-setup (Darkmatter)
+# QUICKSTART — dwm-setup (Graphite Amber)
 
 You just installed the base system and logged into a dwm session. Here's the
 short version of how to live here.
@@ -29,7 +29,7 @@ always running. The dwm bindings in `Super + /` work regardless.
 ## Everyday tasks
 
 **Change the wallpaper.** Run `wallpaper-theme` (or `Super + Shift + p` once
-sxhkd is up). It lists the bundled Darkmatter set in dmenu; pick one and it
+sxhkd is up). It lists the bundled graphite set in dmenu; pick one and it
 re-applies the static palette to dwm, st, rofi, dunst and kitty, then
 recolors dwm in place — no restart. Drop your own images into
 `~/.config/suckless/wallpaper/` and they join the list.
