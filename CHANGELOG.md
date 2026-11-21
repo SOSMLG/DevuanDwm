@@ -11,7 +11,13 @@ entry conflicts with what this repo does today, **the fork wins** — the
 quickshell bar, the butter* tooling, and the wallpaper-driven theming engine
 do not exist here.
 
-## [2026-09-26] — Pre-push audit: file-mode normalization
+## [Unreleased]
+
+### Added
+
+- Repository health files and read-only CI validation.
+
+## [2026-09-26] - Pre-push audit: file-mode normalization
 
 Git tracked nearly the whole `suckless/` tree as executable (C sources, man
 pages, `.diff` patches, Makefiles, even READMEs — 116 files at `100755`),

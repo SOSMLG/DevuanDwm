@@ -1,10 +1,9 @@
 # Contributing
 
 Pull requests are welcome. The fork lives on GitHub at
-[SOSMLG/dwm-setup](https://github.com/SOSMLG/dwm-setup) — fork it, branch
-off `main`, and open a PR. There's no CI gate yet, so the review is
-whatever the maintainer is in the mood for, but the checklist below is what
-gets a change merged without back-and-forth.
+[SOSMLG/DevuanDwm](https://github.com/SOSMLG/DevuanDwm) - fork it, branch
+off `main`, and open a PR. Read-only CI checks shell syntax, data files and
+docs. The checklist below is what gets a change merged without back-and-forth.
 
 ## The rules of the road
 
@@ -80,3 +79,7 @@ the thing. Keep them in a human voice and make sure they match the code —
 if a binding or a script changed, the keybinding table and the
 configuration tree changed with it. There's no wiki; if it isn't in the
 repo, it doesn't exist.
+
+## Repository standard
+
+Guides: [English](https://github.com/SOSMLG/.github/blob/main/docs/GIT_GUIDE.md) / [Arabic](https://github.com/SOSMLG/.github/blob/main/docs/GIT_GUIDE.ar.md).
