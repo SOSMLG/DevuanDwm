@@ -314,7 +314,7 @@ cd ~/.config/suckless/tabbed   && rm -f config.h && sudo make clean install
 ```
 
 ### Added
-- **Theme system**: 12 themes under `suckless/dwm/themes/` (graphite-amber, doomone, dracula, everforest, github_dark, gruvbox, kanagawa, monokai, moonfly, nord, retro, rose_pine). Bound to `Super + Shift + t` via the new `dwm-thememenu` rofi script. Each theme directory holds `dwm.xresources`, `theme.conf` (wallpaper + ghostty/wezterm/GTK/icon/dunst metadata) and `colors.rasi`. Theme switching merges Xresources, swaps wallpaper / dunst / rofi / ghostty / wezterm / GTK, signals `st` (SIGUSR1) for live recolor, and `pkill -HUP dwm` to re-exec with `preserveonrestart`.
+- **Theme system**: 12 themes under `suckless/dwm/themes/` (the Graphite Amber default plus legacy options). Bound to `Super + Shift + t` via the new `dwm-thememenu` rofi script. Each theme directory holds `dwm.xresources`, `theme.conf` (wallpaper + ghostty/wezterm/GTK/icon/dunst metadata) and `colors.rasi`. Theme switching merges Xresources, swaps wallpaper / dunst / rofi / ghostty / wezterm / GTK, signals `st` (SIGUSR1) for live recolor, and `pkill -HUP dwm` to re-exec with `preserveonrestart`.
 - **xresources patch**: dwm reads `dwm.normbgcolor`, `dwm.selbgcolor`, etc. from `~/.Xresources` at startup; restart with `Super + Shift + r` to pick up new values.
 - **statusallmons patch**: status bar draws on every monitor, gated by a `statusallmons` config constant.
 - **fakefullscreen patch**: `lockfullscreen = 0` plus tighter `_NET_WM_STATE_TOGGLE` handling.
