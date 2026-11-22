@@ -58,16 +58,16 @@ require_not_root() {
     # (sudo with no group, doas without a rule). Warn early with the fix —
     # never fatal, the user may know better.
     if ! id -nG 2>/dev/null | grep -qwE "sudo|wheel|doas" \
-       && ! grep -qw "$USER" /etc/doas.conf 2>/dev/null; then
-        log_warn "Your user is in no privilege group (sudo/wheel) and /etc/doas.conf names no rule for $USER."
+       && ! grep -qw "${USER:-$(id -un)}" /etc/doas.conf 2>/dev/null; then
+        log_warn "Your user is in no privilege group (sudo/wheel) and /etc/doas.conf names no rule for ${USER:-$(id -un)}."
         log_warn "Escalation will likely fail. As root, fix with ONE of:"
-        log_warn "  usermod -aG sudo $USER            # Debian stock path"
-        log_warn "  printf 'permit persist $USER as root\n' > /etc/doas.conf   # BSD-minimal path"
+        log_warn "  usermod -aG sudo ${USER:-$(id -un)}            # Debian stock path"
+        log_warn "  printf 'permit persist ${USER:-$(id -un)} as root\n' > /etc/doas.conf   # BSD-minimal path"
     fi
 }
 
 # Real (non-root) user even if invoked via escalation upstream.
-ACTUAL_USER="${SUDO_USER:-${DOAS_USER:-$USER}}"
+ACTUAL_USER="${SUDO_USER:-${DOAS_USER:-${USER:-$(id -un)}}}"
 [ -z "$ACTUAL_USER" ] && ACTUAL_USER="$(id -un)"
 
 run_as_user() {
