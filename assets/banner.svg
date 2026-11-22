@@ -1,8 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="220" viewBox="0 0 1200 220" role="img" aria-label="dwm-setup in graphite and amber">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="220" viewBox="0 0 1200 220" role="img" aria-label="devuan dwm in graphite and amber">
   <rect width="1200" height="220" rx="10" fill="#16181D"/>
   <rect x="1" y="1" width="1198" height="218" rx="9" fill="none" stroke="#30343B" stroke-width="2"/>
-  <rect x="40" y="44" width="4" height="132" rx="2" fill="#E8A33D"/>
-  <text x="68" y="98" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="40" font-weight="700" fill="#D8D3C8">devuan dwm</text>
-  <text x="68" y="136" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="18" fill="#9A9AA2">patched dwm desktop for devuan and debian</text>
-  <text x="68" y="166" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="15" fill="#9A9AA2">native bar, fixed palette, no systemd.</text>
+  <g stroke="#202329" stroke-width="1"><path d="M60 0V220"/><path d="M120 0V220"/><path d="M180 0V220"/><path d="M240 0V220"/><path d="M300 0V220"/><path d="M360 0V220"/><path d="M420 0V220"/><path d="M480 0V220"/><path d="M540 0V220"/><path d="M600 0V220"/><path d="M660 0V220"/><path d="M720 0V220"/><path d="M780 0V220"/><path d="M840 0V220"/><path d="M900 0V220"/><path d="M960 0V220"/><path d="M1020 0V220"/><path d="M1080 0V220"/><path d="M1140 0V220"/><path d="M1200 0V220"/><path d="M0 55H1200"/><path d="M0 110H1200"/><path d="M0 165H1200"/></g>
+  <path d="M780 24V196" stroke="#30343B" stroke-width="1"/>
+  <g stroke-linecap="square" stroke-linejoin="miter">
+  <g><rect x="800" y="30" width="150" height="64" fill="#202329" stroke="#30343B" stroke-width="2"/><rect x="962" y="30" width="198" height="64" fill="none" stroke="#30343B" stroke-width="2"/><rect x="800" y="106" width="96" height="108" fill="#202329" stroke="#30343B" stroke-width="2"/><rect x="908" y="106" width="120" height="52" fill="none" stroke="#30343B" stroke-width="2"/><rect x="908" y="170" width="120" height="44" fill="#202329" stroke="#30343B" stroke-width="2"/><rect x="1040" y="106" width="120" height="108" fill="none" stroke="#30343B" stroke-width="2"/></g>
+  <path d="M800 86H1160M884 106V214M1028 106V214" stroke="#30343B" stroke-width="1"/>
+  <rect x="962" y="106" width="198" height="52" fill="none" stroke="#9A9AA2" stroke-width="1"/>
+  </g>
+  <rect x="40" y="42" width="5" height="136" fill="#E8A33D"/>
+  <text x="64" y="102" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="54" font-weight="700" letter-spacing="-1" fill="#D8D3C8">devuan dwm</text>
+  <text x="64" y="142" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="17" fill="#9A9AA2">patched dwm desktop for devuan and debian</text>
+  <text x="64" y="170" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="15" fill="#9A9AA2">native bar, fixed palette, no systemd.</text>
 </svg>
