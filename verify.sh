@@ -108,23 +108,24 @@ for g in input video render plugdev; do
     fi
 done
 
-# --- 2. Core dwm shell (install.sh + steps) ---------------------------------
-for p in dwm st slstatus tabbed; do
+# --- 2. Core dwm shell (distro dwm/st/dmenu + local slstatus/tabbed) --------
+for p in dwm st dmenu; do
+    if command -v "$p" >/dev/null 2>&1; then
+        report "suckless: $p" ok "$(command -v "$p")"
+    else
+        report "suckless: $p" fail "not installed -- re-run install.sh"
+    fi
+done
+for p in slstatus tabbed; do
     if [ -x "/usr/local/bin/$p" ]; then
         report "suckless: $p" ok "/usr/local/bin/$p"
     else
         report "suckless: $p" fail "not built -- re-run install.sh"
     fi
 done
-if [ -x /usr/local/bin/dmenu ]; then
-    report "suckless: dmenu" ok "/usr/local/bin/dmenu"
-else
-    report "suckless: dmenu" warn "/usr/local/bin/dmenu missing (re-run install.sh)"
-fi
 
 # --- 3. Graphite Amber config set (suckless dir) ---------------------------------
 SC="$HOME/.config/suckless"
-cfg "dwm/config.def.h" "$SC/dwm/config.def.h"
 cfg "slstatus/config.h" "$SC/slstatus/config.h"
 cfg "dunst dunstrc" "$SC/dunst/dunstrc"
 cfg "rofi config.rasi" "$SC/rofi/config.rasi"
@@ -139,7 +140,7 @@ if grep -q "16181D" "$SC/dunst/dunstrc" 2>/dev/null; then
 else
     report "graphite-amber: dunst bg" warn "not #16181D - re-run the theme step"
 fi
-if grep -q "e8a33d" "$SC/rofi/colors.rasi" 2>/dev/null; then
+if grep -qi "e8a33d" "$SC/rofi/colors.rasi" 2>/dev/null; then
     report "graphite-amber: rofi accent" ok
 else
     report "graphite-amber: rofi accent" warn "not #E8A33D - re-run the theme step"
@@ -150,7 +151,7 @@ fi
 # re-showing its selection window ("screenshot menu won't die"). Bound keys
 # now run wrappers that kill the daemon afterwards, and slock runs through
 # a lock script that does the same cleanup on lock.
-pkg suckless-tools   # provides slock (dmenu/tabbed come from the suckless builds)
+pkg suckless-tools   # provides slock and dmenu (tabbed is built locally)
 pkg flameshot
 cfg "shot wrapper" "$SC/scripts/screenshot"
 cfg "lock script" "$SC/scripts/lock"

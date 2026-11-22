@@ -63,14 +63,6 @@ super + ctrl + r
 super + shift + n
 	~/.config/suckless/scripts/network
 
-# Tab attach: focused window into a tab group on this monitor
-super + w
-	~/.config/suckless/dwm/dwmtabs attach
-
-# Tab detach: focused window out of its tab group
-super + shift + w
-	~/.config/suckless/dwm/dwmtabs detach
-
 # === MEDIA & BRIGHTNESS ===
 
 # Increase Volume (Custom Script)

@@ -46,19 +46,15 @@ number accordingly.
   exit non-zero and say why.
 
 ## Changing the suckless tree
-
-- Edit `config.def.h`, never a generated `config.h` or
-  `keybindings.txt`. The dwm Makefile copies the header and regenerates
-  `keybindings.txt` from the annotated `keys[]` table via
-  `scripts/gen-keybinds`, so help text goes in the trailing comments next
-  to each binding.
-- New dwm patches go in `suckless/dwm/patches/` and get a row in
-  `suckless/dwm/modifications.txt` where applicable.
-- If you touch the Graphite Amber palette, you touched everything: the hexes
-  clear across `dwm/config.def.h`, `slstatus/config.h`, `st/config.def.h`,
-  `rofi/colors.rasi`, `dunst/dunstrc` (`# THEME:` markers), kitty's
-  `current-theme.conf` and `wallpaper-theme` itself. `verify.sh` spot-checks
-  `#16181D` / `#E8A33D` in dunst and rofi, and it will tell you.
+- Keep Graphite Amber hexes in the shipped configs: `rofi/colors.rasi`,
+  `dunst/dunstrc` (`# THEME:` markers), kitty's `current-theme.conf` and
+  `wallpaper-theme`. `verify.sh` spot-checks `#16181D` / `#E8A33D` in dunst
+  and rofi.
+- `slstatus/config.h` controls the status text. `tabbed/` is the other local
+  source tree. Both are rebuilt with `make && doas make install`.
+- Custom keys live in `suckless/sxhkd/sxhkdrc`; reload with `Super + Escape`.
+  dwm itself comes from the distro package, so its key table is not in this
+  repo.
 
 ## Before you push
 

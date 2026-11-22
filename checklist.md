@@ -28,10 +28,7 @@ To re-test just the config side on an already-built box, `./install.sh
 ## Phase 2 — The bar
 
 - [ ] Status text updates (CPU/RAM move; clock advances)
-- [ ] Status draws on **all** monitors (multi-monitor only — `statusallmons`)
-- [ ] Layout symbol visible on the left (default: dwindle 󰕴), window-follow glyph `>`/`v` next to it
 - [ ] `bar restart` / `Super + Ctrl + r` (sxhkd up) bounces slstatus cleanly
-- [ ] `Super + Ctrl + b` hides and restores the bar
 
 ## Phase 3 — Core dwm bindings
 
@@ -104,7 +101,6 @@ To re-test just the config side on an already-built box, `./install.sh
 - [ ] Brightness: `XF86MonBrightnessUp/Down` move the backlight
 - [ ] `Super + x` → power menu; `Shutdown` asks loginctl, cancel closes cleanly
 - [ ] `Super + Shift + n` toggles the NM connection editor
-- [ ] `Super + w` attaches the focused window to a tab group; `Super + Shift + w` detaches; empty container destroys itself
 - [ ] `Super + Escape` reloads sxhkd with a notification
 
 ## Phase 12 — Steps + verification
@@ -127,8 +123,8 @@ On the test box, run the full kit and confirm the audit passes:
 ## When something fails
 
 1. Note the phase and what happened before touching anything.
-2. Bindings dead in Phase 3? They're compiled in — check `config.def.h` and
-   rebuild (`make && doas make install`).
+2. Bindings dead in Phase 3? Check `~/.config/suckless/sxhkd/sxhkdrc` and
+   reload with `Super + Escape`. dwm's own keys belong to the packaged config.
 3. sxhkd rows missing? `pgrep -ax sxhkd`, and run
    `sxhkd -c ~/.config/suckless/sxhkd/sxhkdrc` in the foreground to see
    parse errors.
