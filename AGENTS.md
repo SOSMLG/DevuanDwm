@@ -28,11 +28,11 @@ When working on this repo:
   `bash -n` + shellcheck and be safe to re-run (no blind force-purges;
   back up before destructive writes).
 - **Configs.** `suckless/*` is canonical and mirrors `~/.config/suckless`
-  on the live box. dwm/st/slstatus/dmenu/tabbed build from their
-  directories under `$HOME/.config/suckless` after config-copy; the
-  Graphite Amber palette in `config.def.h` is the source of truth for hexes.
-  Keep `keybindings.txt` in sync (the dwm Makefile regenerates it via
-  `scripts/gen-keybinds`).
+  on the live box. dwm, st and dmenu come from distro packages; only slstatus
+  and tabbed build from local source. Graphite Amber hexes live in the
+  shipped rofi/dunst/kitty configs and `wallpaper-theme`. `sxhkdrc` is the
+  custom key reference; `keybindings.txt` is optional and only used by `help`
+  when present.
 - **Verification.** `./verify.sh` is a read-only audit (groups, installed
   binaries, Graphite Amber hexes, services). Run it after touching configs
   or steps; `run.sh --verify` wraps it.

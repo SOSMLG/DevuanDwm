@@ -14,17 +14,10 @@ short version of how to live here.
 - The bar at the top is dwm's own, fed by slstatus: wifi, CPU, RAM, disk,
   battery, clock. Nothing to maintain.
 
-One honest caveat: several convenience keys — the rofi app menu
-(`Super + Space`), the browser bound to `Super + b`, volume and brightness
-keys, the power menu on `Super + x` — live in `sxhkdrc`, and **sxhkd is not
-autostarted**. If those keys do nothing, start sxhkd once:
-
-```bash
-sxhkd &
-```
-
-or add the same line to `~/.config/suckless/scripts/autostart.sh` so it's
-always running. The dwm bindings in `Super + /` work regardless.
+Convenience keys — the rofi app menu (`Super + Space`), the browser bound to
+`Super + b`, volume and brightness keys, and the power menu on `Super + x` —
+live in `sxhkdrc`. `sxhkd` starts automatically from `autostart.sh`, so those
+keys are live after login. The dwm bindings in `Super + /` are separate.
 
 ## Everyday tasks
 
@@ -54,23 +47,19 @@ cd dwm-setup
 Reboot when it finishes — the first step adds you to the input/video/render/
 plugdev groups, and that only matters on the next login.
 
-**Change a dwm keybind.** They're compiled in, not read at runtime:
+**Change a custom keybind.** The app/media layer is read from `sxhkdrc` at runtime:
 
 ```bash
-cd ~/.config/suckless/dwm
-nano config.def.h               # edit the key line + its comment
-make && doas make install
+nano ~/.config/suckless/sxhkd/sxhkdrc
 ```
 
-`make` regenerates `keybindings.txt` from the comments automatically, so the
-`Super + /` help updates itself. Then `Super + Shift + r` restarts dwm with
-your windows and tags intact.
+Press `Super + Escape` to reload it. dwm's own keys belong to the packaged
+dwm configuration; this repo does not ship that source tree.
 
 ## Where things live
 
-- Config root: `~/.config/suckless/` — dwm, slstatus, st, rofi, dunst,
+- Config root: `~/.config/suckless/` — slstatus, tabbed, rofi, dunst,
   picom, kitty, wallpaper, scripts
-- dwm keybinds: `~/.config/suckless/dwm/config.def.h`
-- App/media keys (optional): `~/.config/suckless/sxhkd/sxhkdrc`
+- App/media keys: `~/.config/suckless/sxhkd/sxhkdrc`
 - Setup steps: `steps/` in the repo, run via `./run.sh`
 - Install and run logs: `~/.local/state/dwm-setup/`

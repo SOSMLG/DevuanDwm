@@ -3,6 +3,8 @@
 KEYSTXT="$HOME/.config/suckless/dwm/keybindings.txt"
 SXHKDRC="$HOME/.config/suckless/sxhkd/sxhkdrc"
 THEME="$HOME/.config/suckless/rofi/keybinds.rasi"
+KEY_SRC="$KEYSTXT"
+[ -r "$KEY_SRC" ] || KEY_SRC=/dev/null
 
 # Pin syntax: prefix the description with "!" (and optional space) to render
 # the entry at the top of its section, regardless of source file order.
@@ -95,7 +97,7 @@ rows=$(awk '
             }
         }
     }
-' "$KEYSTXT" "$SXHKDRC")
+' "$KEY_SRC" "$SXHKDRC")
 
 echo "$rows" | rofi -dmenu -markup-rows -i -p "Keybindings" \
     -line-padding 4 -hide-scrollbar -theme "$THEME"

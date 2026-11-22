@@ -8,14 +8,14 @@ builds a patched dwm desktop for devuan 6 or debian 13 with the native dwm bar, 
 
 | | |
 | --- | --- |
-| **build** | dwm 6.8 with 22 patches, built from source into `/usr/local/bin`. |
+| **build** | distro dwm, stterm and suckless-tools; slstatus and tabbed build locally from this repo. |
 | **bar** | slstatus feeds dwm's own bar. no shell, qml or gpu process for the status text. |
 | **palette** | graphite `#16181d` with amber `#e8a33d`. colors are never derived from a wallpaper. |
 | **init** | openrc and sysvinit only. doas first, sudo as fallback. no systemctl. |
 
 ## What you're getting
 
-- **dwm 6.8, patched and built from source.** vanitygaps, named scratchpads plus the nine scratchtagwin slots, 12 tags, a per-client column layout (i3-style, weighted by cfact), window-follow, movestack, sticky, status2d with bar padding, and the xresources patch so colors can be overridden at startup from `~/.Xresources`. The full patch list lives in `suckless/dwm/patches/`, with hand-merge notes in `suckless/dwm/modifications.txt`.
+- **dwm from the distro packages.** Window management uses the packaged dwm 6.x. This repo owns the supporting layer: slstatus, sxhkd, rofi, dunst, picom, scripts and a fixed Graphite Amber palette. The patched 6.8 source tree is not shipped here.
 - **The native dwm bar, fed by slstatus.** WiFi, CPU, RAM, disk, battery and the clock, drawn as colored status2d blocks. It's just a root-window name that dwm renders; no shell, no QML, no GPU.
 - **st is the default terminal.** `Super + Return` opens it, and the scratchpad uses it too. kitty is still installed and themed to match, for when you want tabs and richer config. The session wrapper points `KITTY_CONFIG_DIRECTORY` at the repo's kitty config, so this setup never touches a global `~/.config/kitty`. Built with scrollback, clipboard, and url/copyout: `Ctrl + Shift + l` picks a URL to open, `u` copies one, `o` copies a command's output (dmenu-driven), all through the bundled `st-urlhandler`/`st-copyout` scripts.
 - **dmenu and rofi, both colored to match.** `Super + p` runs dmenu; rofi handles the app menu, the window switcher and the power menu.
@@ -56,66 +56,11 @@ cd DevuanDwm
 
 `./run.sh` asks Y/N per step, one password prompt up front (doas `persist` is primed and kept alive for the whole run), and logs everything to `~/.local/state/dwm-setup/last-run.log`. A reboot after `--full` is recommended — group membership from the first step needs a fresh login.
 
-Re-running the config part without touching packages or services is exactly what `--only-config` is for, and it's the same flag you'd use on an unsupported distro, where you'd build the five tools by hand afterward.
+Re-running the config part without touching packages or services is exactly what `--only-config` is for, and it's the same flag you'd use on an unsupported distro, where you'd install dwm/st/dmenu by hand and build slstatus/tabbed afterward.
 
 ## Keybindings
 
-There are two layers, and it's important which is which:
-
-- **dwm bindings** are compiled into `config.def.h`. They are always live, and they own window management, layouts, tags, scratchpads and gaps.
-- **sxhkd bindings** cover apps, media and system actions. sxhkd is **not autostarted** — `sxhkdrc` is kept in the repo as the reference for that layer, but if you want those keys you start `sxhkd` yourself (or add it to `autostart.sh`). Everything in the first table below works regardless.
-
-The dwm layer, from `~/.config/suckless/dwm/keybindings.txt`:
-
-| Shortcut | Action |
-|---|---|
-| **Launch** | |
-| `Super + Return` | Terminal (st) |
-| `Super + p` | dmenu launcher |
-| `Print` | Screenshot (flameshot gui) |
-| **Windows** | |
-| `Super + q` | Close focused window |
-| `Super + j` / `k` | Focus next / previous window |
-| `Super + Shift + j` / `k` | Move window down / up in stack |
-| `Super + Tab` | Toggle to previous tag |
-| `Super + Shift + f` | Toggle fullscreen |
-| `Super + Shift + Space` | Toggle floating |
-| `Super + y` | Toggle sticky (show on all tags) |
-| `Super + n` | Toggle window-follow on tag/monitor change |
-| `Super + Ctrl + b` | Toggle the bar |
-| `Super + apostrophe` | Window switcher (rofi, all tags and monitors) |
-| **Layouts & resize** | |
-| `Super + h` / `l` | Shrink / grow master or focused column |
-| `Super + Ctrl + Left/Right` | Resize, layout-aware |
-| `Super + ;` | Reset master + column factors |
-| `Super + Alt + Tab` (+ Shift) | Master count +1 / −1 |
-| `Shift + Ctrl + 1..=` | Pick layout directly (12 layouts) |
-| **Tags** | |
-| `Super + 1..9, 0, -, =` | View tag 1..12 |
-| `Super + Shift + 1..=` | Send focused window to tag |
-| `Super + Ctrl + 1..=` | Toggle tag visibility |
-| `Super + Ctrl + Shift + 1..=` | Toggle window on tag |
-| `Ctrl + Shift + Left/Right` | View previous / next tag |
-| `Alt + Ctrl + Left/Right` | Send window to adjacent tag |
-| **Monitors** | |
-| `Super + ,` / `.` | Focus previous / next monitor |
-| `Super + Shift + ,` / `.` | Send window to previous / next monitor |
-| **Scratchpads** | |
-| `` Super + ` `` | Toggle scratchpad (st) |
-| `Super + v` | Toggle pulsemixer scratchpad |
-| `Super + Alt + 1..9` | Toggle named scratch slot 1..9 |
-| `Super + Alt + Shift + 1..9` | Promote focused window into a slot |
-| `Super + Alt + Shift + s` | Promote focused window to scratchpad |
-| **Gaps** | |
-| `Super + Alt + 0` | Toggle gaps on/off |
-| `Super + Alt + Shift + 0` | Reset gaps to defaults |
-| `Super + Alt + u` / `Shift + u` | Increase / decrease all gaps |
-| `Super + Alt + i` / `o`, `6`–`9` | Inner / outer gaps, per-axis |
-| **System** | |
-| `Super + Shift + r` | Restart dwm (tags and windows survive) |
-| `Super + Shift + q` | Quit dwm |
-
-The sxhkd layer, when you have it running:
+The packaged dwm owns window management with its stock bindings. This repo owns the sxhkd layer for apps, media and system actions; sxhkd starts from `~/.config/suckless/scripts/autostart.sh`.
 
 | Shortcut | Action |
 |---|---|
@@ -128,31 +73,23 @@ The sxhkd layer, when you have it running:
 | `Super + o` | OBS |
 | `Super + Shift + l` | Layout menu (rofi) |
 | `Super + Shift + p` | Wallpaper picker (re-applies Graphite Amber) |
-| `Super + Ctrl + r` | Restart slstatus (the `bar` script) |
+| `Super + Ctrl + r` | Restart slstatus |
 | `Super + Shift + n` | Network connection editor (toggle) |
-| `Super + w` / `Shift + w` | Attach / detach focused window in a tab group |
 | `Super + F10` / `F11` / `F12`, `XF86Audio*` | Mute / volume down / volume up |
 | `XF86MonBrightnessUp/Down` | Brightness (`xbacklight` ±10) |
 | `Super + s` / `Shift + s` | Flameshot fullscreen / region |
 | `Super + Escape` | Reload sxhkd |
 | `Super + x` | Power menu (rofi, loginctl) |
 
-The `help` script reads both sources and merges them into one searchable rofi overlay, so `Super + /` shows everything, not just the dwm half. Pinned entries — the ones prefixed with `!` in the source — float to the top of their section.
+The `help` script reads `sxhkdrc` and an optional `keybindings.txt` when present, so `Super + /` shows the custom layer without depending on a local dwm build. Pinned entries — the ones prefixed with `!` in the source — float to the top of their section.
 
-**Changing a dwm binding** means editing the trailing comment and the key line in `~/.config/suckless/dwm/config.def.h`, then rebuilding:
-
-```bash
-cd ~/.config/suckless/dwm
-make && doas make install
-```
-
-The dwm Makefile regenerates `keybindings.txt` from that annotated `keys[]` table on every build (via `scripts/gen-keybinds`), so the help can't drift from the config. Never edit `keybindings.txt` by hand. After the rebuild, `Super + Shift + r` re-execs dwm with the new binary — tags and windows survive; a full logout/login works too.
+**Changing a custom binding** means editing `~/.config/suckless/sxhkd/sxhkdrc`, then pressing `Super + Escape`. To change dwm's own keys, edit the packaged dwm configuration instead.
 
 ## The bar
 
-slstatus writes one line of text — WiFi signal, CPU, RAM, disk, battery and a clock, each with a status2d color block and a Nerd Font glyph — into the root window name, and dwm renders it on every monitor (`statusallmons`). It refreshes every second, which is plenty for a status line and nothing you'd notice in the CPU graph.
+slstatus writes one line of text — WiFi signal, CPU, RAM, disk, battery and a clock — into the root window name, and dwm renders it in its stock bar. It refreshes every second, which is plenty for a status line and nothing you'd notice in the CPU graph.
 
-The systray patch is compiled in but switched off (`showsystray = 0`), so slstatus owns the bar without fighting a tray. If you actually want tray icons, flip that to `1` and rebuild. The `bar` script restarts slstatus cleanly — `bar restart`, which is also `Super + Ctrl + r` if sxhkd is up. The dwm bar itself toggles with `Super + Ctrl + b`.
+The `bar` script restarts slstatus cleanly; `Super + Ctrl + r` is the sxhkd shortcut. Bar toggling and tray behavior follow the packaged dwm defaults.
 
 ## The look: static Graphite Amber
 
@@ -169,35 +106,32 @@ So the picker changes the picture, and the picture always matches the theme beca
 
 ## Configuration
 
-Everything lives under `~/.config/suckless/`, copied straight from the repo by `install.sh`:
+Local configs live under `~/.config/suckless/`, copied straight from the repo by `install.sh`. dwm, st and dmenu come from the distro packages and are not part of this tree.
 
 ```
 ~/.config/suckless/
-├── dwm/                  # config.def.h (edit this) + patches/ + keybindings.txt
-├── slstatus/             # config.def.h — what the bar shows
-├── st/                   # config.def.h — terminal colors, font, scrollback
-├── dmenu/                # dmenu source (colors come from dwm's dmenucmd)
+├── slstatus/             # config.h — what the bar shows
 ├── tabbed/               # tabbed container source
 ├── rofi/                 # config.rasi, window.rasi, keybinds.rasi, power.rasi
 │   └── colors.rasi       # palette, rewritten by wallpaper-theme
 ├── dunst/dunstrc         # notifications (THEME-marked hex lines)
 ├── picom/picom.conf      # compositor (xrender backend by default)
 ├── kitty/                # kitty.conf + current-theme.conf (session-scoped)
-├── sxhkd/sxhkdrc         # optional app/media key layer (not autostarted)
+├── sxhkd/sxhkdrc         # app/media key layer (autostarted)
 ├── wallpaper/            # the bundled graphite set
 └── scripts/              # autostart, bar, changevolume, dwm-session,
                           # dwm-layout-menu, gen-keybinds, help, network,
                           # power, wallpaper-theme, weather
 ```
 
-The rebuild dance is the same for every tool in the tree:
+Only the local source trees are rebuilt:
 
 ```bash
-cd ~/.config/suckless/dwm     # or slstatus, st, tabbed, dmenu
-make && doas make install     # make clean install if the build tree is stale
+cd ~/.config/suckless/slstatus   # or tabbed
+make && doas make install
 ```
 
-Edit `config.def.h`, never the generated `config.h` or `keybindings.txt`. The `weather` script deserves a mention here: it's the rofi front-end for the bar's weather readout — type a city, or pick the rows that reset location and units. It keeps its state in two plain files (`weather-location`, `weather-units`) next to the configs.
+The `weather` script is the rofi front-end for the bar's weather readout — type a city, or pick the rows that reset location and units. It keeps its state in two plain files (`weather-location`, `weather-units`) next to the configs.
 
 ## Step phases
 
@@ -229,7 +163,7 @@ Edit `config.def.h`, never the generated `config.h` or `keybindings.txt`. The `w
 | utils | 51-backup.sh | N | Timestamped `~/.config`/dotfiles backup to `dwm-setup-config-backup-*.tar.gz` (+ list/restore) |
 | utils | 52-skel-export.sh | N | Copy per-user defaults (suckless configs, fastfetch, ButterBash, fonts) into `/etc/skel` |
 
-Phase filters: `--phase core,desktop,engineering,apps,utils` (or a subset). `--only` takes names or numbers and matches partial names (`--only gaming` finds `45-gaming.sh`). `--yes` answers every prompt with its default; `--full` is `--yes` with every default forced to Y; `DEBSWAY_ASSUME_YES=1` does the same from the environment. `--verify` closes the loop by running `verify.sh` — a read-only audit that checks group membership, the `/usr/local/bin` suckless binaries, the Graphite Amber hex spot-checks in dunst/rofi, OpenRC, the lightdm session and the optional app packages.
+Phase filters: `--phase core,desktop,engineering,apps,utils` (or a subset). `--only` takes names or numbers and matches partial names (`--only gaming` finds `45-gaming.sh`). `--yes` answers every prompt with its default; `--full` is `--yes` with every default forced to Y; `DEBSWAY_ASSUME_YES=1` does the same from the environment. `--verify` closes the loop by running `verify.sh` — a read-only audit that checks group membership, the packaged dwm/st/dmenu commands, the locally built slstatus/tabbed binaries, the Graphite Amber hex spot-checks in dunst/rofi, OpenRC, the lightdm session and the optional app packages.
 
 The engineering trio is worth calling out: 30 covers the MathWorks-free side (Octave, notebooks, the SciPy stack and a small `~/.local/venv/eng` that holds python-control so it never touches apt), 31 brings in the heavy EDA tools, and 32 doesn't install Matlab itself — MathWorks needs your account for that — it installs `matlab-support` and drops a `matlab-install` helper in `~/.local/bin` that verifies and attaches a downloaded MathWorks `.deb` with `dpkg -i`.
 
@@ -238,7 +172,7 @@ The engineering trio is worth calling out: 30 covers the MathWorks-free side (Oc
 The base install (from `install.sh`) pulls, roughly:
 
 - **X + display:** `xorg` `xorg-dev`, `lightdm` + `lightdm-gtk-greeter`, `picom`, `feh`, `xsettingsd`, `nwg-look`, `xbacklight`, `xinput`
-- **Suckless source builds:** dwm, slstatus, st, tabbed, dmenu (built, not packaged)
+- **Suckless:** `dwm`, `stterm`, `suckless-tools` from the distro; `slstatus` and `tabbed` built locally
 - **Launchers & UI:** `rofi`, `dunst`, `dmenu`-adjacent helpers, `flameshot`, `qimgv`, `lxpolkit`
 - **Files:** `thunar` + `thunar-archive-plugin` + `thunar-volman`, `gvfs-backends`/`gvfs-fuse`, `dialog` `mtools` `smbclient` `cifs-utils` `unzip`
 - **Audio:** `pavucontrol` `pulsemixer` `pamixer` `pipewire-audio` `pulseaudio-utils`
@@ -255,9 +189,9 @@ Bluetooth firmware follows the hardware: if the kernel exposes an adapter, `blue
 The longer write-ups live in [`docs/troubleshooting.md`](docs/troubleshooting.md). The two-minute versions:
 
 - **Bar gone or weird:** `bar restart`, or `Super + Ctrl + r` with sxhkd. slstatus is a pgrep-guarded daemon in `autostart.sh`; if it died, that's the bounce.
-- **Nothing you type in sxhkd fires:** sxhkd is not autostarted. Run `sxhkd` once, or uncomment a line for it in `autostart.sh`.
-- **A `dwm` package respawned:** the distro's `dwm` shadows ours at `/usr/bin/dwm`. `install.sh` purges it; if you installed it later, `doas apt purge dwm` and rebuild from `~/.config/suckless/dwm`.
-- **Login loop or black screen:** check `~/.xsession-errors` first — it's the honest record of what the session did. `dwm-session` execs dwm, so a config error in `config.def.h` shows up there.
+- **Nothing you type in sxhkd fires:** check `pgrep -ax sxhkd`; `autostart.sh` launches it. Reload with `Super + Escape` after editing `sxhkdrc`.
+- **A `dwm` package respawned:** that is expected — the packaged dwm is the one this setup uses. The local rebuild path no longer applies.
+- **Login loop or black screen:** check `~/.xsession-errors` first — it's the honest record of what the session did. `dwm-session` execs the packaged dwm, so startup errors show up there.
 - **`~/.local/bin` tools invisible from the WM:** LightDM sessions read `~/.xsessionrc`, not `~/.profile`. `install.sh` writes the PATH snippet; if you added the tool later, the snippet is idempotent and safe to re-run.
 - **Mouse stutter on NVIDIA:** picom ships with `backend = "xrender"` on purpose (it works everywhere). On the proprietary driver, switch it to `glx` in `picom.conf` and restart picom — but leave it alone on Intel/VMs where glx can be worse.
 

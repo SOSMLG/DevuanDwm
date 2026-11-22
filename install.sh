@@ -80,15 +80,16 @@ if [ -z "${DEBSWAY_ASSUME_YES:-}" ]; then
     [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1
 fi
 
-# --- Packages (dwm/slstatus/st/tabbed/dmenu built from source below) ---------
+# --- Packages (dwm/st/dmenu from apt; slstatus/tabbed built below) -----------
 PACKAGES=(
     # core
     xorg xorg-dev xbacklight xbindkeys xvkbd xinput
     build-essential sxhkd xdotool dbus-x11
+    dwm stterm suckless-tools
     libnotify-bin libnotify-dev
 
     # ui
-    picom rofi dunst feh
+    picom rofi dunst feh papirus-icon-theme
     nwg-look xsettingsd network-manager-gnome lxpolkit
 
     # display manager (greeter + session wiring)
@@ -204,12 +205,11 @@ cp -r "$SCRIPT_DIR"/suckless/* "$CONFIG_DIR"/ || die "Failed to copy configs"
 # The wallpaper dir is part of the config tree now (bundled, not cloned from
 # a remote); wallpaper-theme writes relative to the same root.
 
-# === Build suckless tools ===================================================
-# dwm, slstatus, st, tabbed and dmenu all build from the repo copy. The
-# xresources patch reads ~/.Xresources at dwm startup, so a bare install
-# (no wallpaper-theme run yet) still gets the Graphite Amber colors compiled in.
-msg "Building suckless tools..."
-for tool in dwm slstatus st tabbed dmenu; do
+# === Build local suckless tools =============================================
+# dwm, st and dmenu come from the distro packages above. Only slstatus and
+# tabbed have local source in this repo, so they are the only tools built here.
+msg "Building local suckless tools..."
+for tool in slstatus tabbed; do
     cd "$CONFIG_DIR/$tool" || die "Cannot find $tool"
     if make >/dev/null && priv make install >/dev/null; then
         msg "  + built $tool"
