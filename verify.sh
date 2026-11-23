@@ -5,7 +5,7 @@
 # One-pass check of the toolkit's expected end state:
 # group membership, dwm/slstatus/st builds, the Graphite Amber
 # config set, engineering stack, app defaults, and services.
-# Run via `run.sh --verify` or standalone after a run.
+# Run via `install.sh --verify` or standalone after a run.
 #
 # Prints PASS/FAIL/WARN and exits non-zero on any critical
 # failure, so it can gate CI/validation.

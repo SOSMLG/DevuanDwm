@@ -108,8 +108,8 @@ To re-test just the config side on an already-built box, `./install.sh
 On the test box, run the full kit and confirm the audit passes:
 
 ```bash
-./run.sh --full
-./run.sh --verify        # or: bash verify.sh
+./install.sh --full
+./install.sh --verify        # or: bash verify.sh
 ```
 
 - [ ] `--full` finishes with no failed steps; `last-run.log` shows `result  ok`
@@ -118,7 +118,7 @@ On the test box, run the full kit and confirm the audit passes:
 - [ ] `/usr/local/bin` holds dwm, st, slstatus, tabbed, dmenu
 - [ ] Graphite Amber spot-checks pass (dunst `#16181D`, rofi `#E8A33D`)
 - [ ] Spot-check a step: `octave --version`, `python3 -c "import control"` inside `~/.local/venv/eng`, `codium --version`, `opencode --version` (if you ran those phases)
-- [ ] A second run of `./run.sh --full` is a no-op apart from re-checks (idempotence)
+- [ ] A second run of `./install.sh --full` is a no-op apart from re-checks (idempotence)
 
 ## When something fails
 

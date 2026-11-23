@@ -18,7 +18,7 @@ script, so keep it that way:
   new code, no systemd timers.
 - **No root, ever.** Steps refuse to run as root and escalate the small
   parts that need elevation. Per-user state must land in the real user's
-  `$HOME`, which is why `run.sh` and every step check `id -u` up front.
+  `$HOME`, which is why `install.sh` and every step check `id -u` up front.
 - **Nothing remote is piped into bash.** Install step content runs from
   files on disk. When a tool needs an installer, install the artifact
   through a real package path (apt, Flatpak, npm, a `.deb`) or print the
@@ -27,12 +27,12 @@ script, so keep it that way:
 ## Adding or changing a step
 
 Steps live in `steps/##-*.sh`. The leading digit decides the phase —
-`1` core, `3` engineering, `4` apps — and `run.sh` sorts by filename, so
+`1` core, `3` engineering, `4` apps — and `install.sh` sorts by filename, so
 number accordingly.
 
 - Every step carries two headers near the top, no exceptions:
   `# DEBSWAY_DESC:` (one line) and `# DEBSWAY_DEFAULT:` (`Y` or `N`).
-  `./run.sh --list` reads them, and the README's phase table is generated
+  `./install.sh --list` reads them, and the README's phase table is generated
   from the same source.
 - Source `lib/common.sh` and use its helpers: `ask()`, `install_pkgs()`
   (which skips what's already installed and checks the apt cache before
@@ -61,9 +61,9 @@ number accordingly.
 1. `bash -n` anything you touched, and run `shellcheck` on it if you have
    it. `scripts/gen-keybinds` and the awk inside `scripts/help` are the
    usual places a "small fix" turns into a parse error.
-2. `./run.sh --list` — if you changed a step's headers, confirm they render
+2. `./install.sh --list` — if you changed a step's headers, confirm they render
    with the right phase/description/default.
-3. If your change affects the end state, run `./run.sh --verify` (or
+3. If your change affects the end state, run `./install.sh --verify` (or
    `bash verify.sh`) — a read-only audit that must exit with zero FAILs.
 4. Update the CHANGELOG fork section for user-visible changes. Keep the
    historical upstream entries below it untouched.

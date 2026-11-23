@@ -27,7 +27,7 @@ CYAN="\033[0;36m"
 RESET="\033[0m"
 
 # --- Directory setup ---
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 STEPS_DIR="$SCRIPT_DIR/steps"
 
 usage() {
@@ -51,9 +51,9 @@ per script. Options:
   -h, --help            Show this help.
 
 TL;DR:  ./install.sh         one-command, everything, unattended
-        ./run.sh --list      see what it would do
-        ./run.sh --phase core,apps
-        ./run.sh --only gaming,chat
+        ./install.sh --list      see what it would do
+        ./install.sh --phase core,apps
+        ./install.sh --only gaming,chat
 EOF
 }
 
@@ -102,21 +102,24 @@ done
 # Per-user state (~/.config/suckless, ~/.local/bin, venvs) must land in the
 # real user's $HOME, not /root. Scripts escalate (doas) themselves.
 if [ "$(id -u)" -eq 0 ] && [ -z "${SUDO_USER:-${DOAS_USER:-}}" ]; then
-    echo -e "${RED}Please run this as your normal user, not as root / doas bash run.sh.${RESET}"
+    echo -e "${RED}Please run this as your normal user, not as root / doas bash install.sh.${RESET}"
     echo -e "${YELLOW}Each script will escalate itself (doas) for the parts that need it.${RESET}"
     exit 1
 fi
 
 # --- Distro check (Devuan ships /etc/devuan_version; Debian has debian_version) --
-if [ -f /etc/devuan_version ]; then
-    echo -e "${GREEN}Devuan detected: $(cat /etc/devuan_version) — OpenRC service handling active.${RESET}"
-elif [ -f /etc/debian_version ]; then
-    echo -e "${GREEN}Debian-based system detected: $(cat /etc/debian_version)${RESET}"
-else
-    echo -e "${YELLOW}Warning: this toolkit targets Devuan/Debian. Your system may not be compatible.${RESET}"
-    if [ -z "${DEBSWAY_ASSUME_YES:-}" ]; then
-        read -r -p "Continue anyway? (y/N): " continue_anyway
-        [[ "$continue_anyway" =~ ^[Yy]$ ]] || exit 1
+# --list is read-only and host-independent, so it skips the compatibility gate.
+if [ "$DO_LIST" -eq 0 ]; then
+    if [ -f /etc/devuan_version ]; then
+        echo -e "${GREEN}Devuan detected: $(cat /etc/devuan_version) - OpenRC service handling active.${RESET}"
+    elif [ -f /etc/debian_version ]; then
+        echo -e "${GREEN}Debian-based system detected: $(cat /etc/debian_version)${RESET}"
+    else
+        echo -e "${YELLOW}Warning: this toolkit targets Devuan/Debian. Your system may not be compatible.${RESET}"
+        if [ -z "${DEBSWAY_ASSUME_YES:-}" ]; then
+            read -r -p "Continue anyway? (y/N): " continue_anyway
+            [[ "$continue_anyway" =~ ^[Yy]$ ]] || exit 1
+        fi
     fi
 fi
 
@@ -209,9 +212,9 @@ if [ "$DO_LIST" -eq 1 ]; then
     done
     unset _last_phase
     echo
-    echo -e "Phases: core desktop engineering apps utils  (filter: ${CYAN}./run.sh --phase core,apps${RESET})"
+    echo -e "Phases: core desktop engineering apps utils  (filter: ${CYAN}./install.sh --phase core,apps${RESET})"
     echo -e "Run everything unattended: ${CYAN}./install.sh${RESET}"
-    echo -e "Run everything interactively: ${CYAN}./run.sh${RESET}"
+    echo -e "Run everything interactively: ${CYAN}./install.sh${RESET}"
     exit 0
 fi
 
@@ -261,7 +264,7 @@ echo -e "${BLUE}   dwm-setup — Devuan 6 (Excalibur) + dwm${RESET}"
 echo -e "${BLUE}=========================================================${RESET}\n"
 
 # --- One apt refresh, then let the scripts skip their own ------------------
-# NOTE: run.sh never sources lib/common.sh, so it keeps a local priv()
+# NOTE: the runner never sources lib/common.sh, so it keeps a local priv()
 # instead of the shared helper (same contract: doas first, sudo fallback).
 priv() {
     if command -v doas >/dev/null 2>&1; then doas "$@"; else sudo "$@"; fi
