@@ -39,9 +39,9 @@ the rest:
 
 ```bash
 cd dwm-setup
-./run.sh --list                 # see what exists
-./run.sh --phase core,apps      # pick by phase
-./run.sh --full                 # everything, unattended
+./install.sh --list                 # see what exists
+./install.sh --phase core,apps      # pick by phase
+./install.sh --full                 # everything, unattended
 ```
 
 Reboot when it finishes — the first step adds you to the input/video/render/
@@ -61,5 +61,5 @@ dwm configuration; this repo does not ship that source tree.
 - Config root: `~/.config/suckless/` — slstatus, tabbed, rofi, dunst,
   picom, kitty, wallpaper, scripts
 - App/media keys: `~/.config/suckless/sxhkd/sxhkdrc`
-- Setup steps: `steps/` in the repo, run via `./run.sh`
+- Setup steps: `steps/` in the repo, run via `./install.sh`
 - Install and run logs: `~/.local/state/dwm-setup/`

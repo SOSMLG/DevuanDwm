@@ -48,13 +48,13 @@ The installer only owns the base system. Once it's done, the app layers come fro
 
 ```bash
 cd DevuanDwm
-./run.sh --list              # what the phases contain
-./run.sh --phase core,apps   # pick phases
-./run.sh --only gaming,chat  # or individual steps
-./run.sh --full              # everything, unattended
+./install.sh --list              # what the phases contain
+./install.sh --phase core,apps   # pick phases
+./install.sh --only gaming,chat  # or individual steps
+./install.sh --full              # everything, unattended
 ```
 
-`./run.sh` asks Y/N per step, one password prompt up front (doas `persist` is primed and kept alive for the whole run), and logs everything to `~/.local/state/dwm-setup/last-run.log`. A reboot after `--full` is recommended — group membership from the first step needs a fresh login.
+`./install.sh` asks Y/N per step, one password prompt up front (doas `persist` is primed and kept alive for the whole run), and logs everything to `~/.local/state/dwm-setup/last-run.log`. A reboot after `--full` is recommended — group membership from the first step needs a fresh login.
 
 Re-running the config part without touching packages or services is exactly what `--only-config` is for, and it's the same flag you'd use on an unsupported distro, where you'd install dwm/st/dmenu by hand and build slstatus/tabbed afterward.
 
@@ -135,7 +135,7 @@ The `weather` script is the rofi front-end for the bar's weather readout — typ
 
 ## Step phases
 
-`run.sh` discovers steps from `steps/##-*.sh`; the leading digit decides the phase. Every step declares its own description and default via the `# DEBSWAY_DESC:` / `# DEBSWAY_DEFAULT:` headers, which is exactly what `run.sh --list` prints:
+`install.sh` discovers steps from `steps/##-*.sh`; the leading digit decides the phase. Every step declares its own description and default via the `# DEBSWAY_DESC:` / `# DEBSWAY_DEFAULT:` headers, which is exactly what `install.sh --list` prints:
 
 | Phase | Step | Default | What it installs |
 |---|---|---|---|

@@ -21,7 +21,7 @@ When working on this repo:
 - **APT discipline.** Devuan/Debian only. No `apt upgrade` anywhere —
   steps install specific packages. Check names against `apt-cache` and
   use `install_pkgs` (installs only what's missing).
-- **The steps runner.** `run.sh` discovers `steps/##-*.sh` (phase from
+- **The steps runner.** `install.sh` discovers `steps/##-*.sh` (phase from
   the leading digit: 1x core, 3x engineering, 4x apps). Every step has
   `# DEBSWAY_DESC:` / `# DEBSWAY_DEFAULT:` headers (read by `--list`)
   and sources `../lib/common.sh`. New step scripts must pass
@@ -35,7 +35,7 @@ When working on this repo:
   when present.
 - **Verification.** `./verify.sh` is a read-only audit (groups, installed
   binaries, Graphite Amber hexes, services). Run it after touching configs
-  or steps; `run.sh --verify` wraps it.
+  or steps; `install.sh --verify` wraps it.
 - **No AI tells.** This is a published fork — keep comments concrete and
   varied (say *what* and *why*, never a documentarian's monotone), no
   filler sections, no grand summaries. Match the terse style of the

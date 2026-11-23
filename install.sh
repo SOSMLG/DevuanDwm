@@ -4,9 +4,8 @@
 # https://github.com/SOSMLG/dwm-setup
 #
 # One-command, unattended installer: packages, config, suckless builds,
-# session wrapper, lightdm, Thunar helper. App phases (engineering,
-# desktop apps, media, gaming, chat, editors) run separately via
-# `./run.sh --full` -- this file owns the base system only.
+# session wrapper, lightdm, Thunar helper, then every app step
+# (engineering, desktop apps, media, gaming, chat, editors).
 #
 # Devuan-safe by construction: no `apt upgrade` (you pick the upgrade
 # moment), no systemctl (OpenRC/sysvinit via start_service), no install
@@ -16,6 +15,7 @@
 set -uo pipefail
 
 # --- Command line options ----------------------------------------------------
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ONLY_CONFIG=false
 
 while [[ $# -gt 0 ]]; do
@@ -24,9 +24,24 @@ while [[ $# -gt 0 ]]; do
             ONLY_CONFIG=true
             shift
             ;;
+        --verify)
+            # Audit the installed system without running the app steps.
+            exec bash "$SCRIPT_DIR/verify.sh"
+            ;;
+        --list | --phase | --only | --yes | -y | --full | --no-update | --skip-apt-update)
+            # Step-selection flags skip the base install and go straight to
+            # the runner (use them after the base system is in place).
+            exec bash "$SCRIPT_DIR/scripts/lib/runner.sh" "$@"
+            ;;
         --help)
             echo "Usage: $0 [OPTIONS]"
+            echo "  (no options)       Base install, every app step, then verify"
             echo "  --only-config      Only copy config + rebuild suckless (skip packages/services)"
+            echo "  --list             List the app steps and exit"
+            echo "  --only a,b         Run only those app steps"
+            echo "  --phase a,b        Run only those phases"
+            echo "  --no-update        Skip the runner's apt-get update"
+            echo "  --verify           Audit the installed system only (use alone)"
             echo "  --help             Show this help message"
             exit 0
             ;;
@@ -38,7 +53,6 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib/common.sh
 source "$SCRIPT_DIR/lib/common.sh"
 
@@ -132,7 +146,7 @@ if [ "$ONLY_CONFIG" = false ]; then
 
     # !== no bare apt upgrade ================================================
     # The user picks the upgrade moment; boxes that want updates run
-    # `run.sh`'s daily-list refresh + their own upgrade on demand.
+    # the runner's daily-list refresh + their own upgrade on demand.
     msg "Updating package lists only (no upgrade) ..."
     apt_update || { log_warn "apt-get update failed -- continuing anyway (stale lists may break installs)."; }
 
@@ -300,12 +314,10 @@ fi
 
 # === Asset packages =========================================================
 # Nerd Fonts + codecs + bluetooth audio etc. are step-scoped (17/15/14) so
-# the base install stays lean; run `./run.sh --full` (or --phase core,apps)
-# after this to bring the box to the full daily-driver state.
+# the base install stays lean; the runner below brings the box to the full
+# daily-driver state.
 if [ "$ONLY_CONFIG" = false ]; then
-    msg "Base system installed."
-    msg "App phases run separately:  ./run.sh --full"
-    msg "  (engineering math/EDA, desktop apps, media, gaming, chat, editors)"
+    msg "Base system installed - running every app step..."
 fi
 
 # Ensure ~/.local/bin is on PATH for display-manager logins.
@@ -323,9 +335,13 @@ esac
 XSESSIONRC_EOF
 fi
 
+# === App steps + verification ===============================================
+if [ "$ONLY_CONFIG" = false ]; then
+    exec bash "$SCRIPT_DIR/scripts/lib/runner.sh" --full --verify
+fi
+
 # === Done ===================================================================
-echo -e "\n${GREEN}Installation complete!${NC}"
+echo -e "\n${GREEN}Configuration updated!${NC}"
 echo "1. Log out and select 'dwm' from lightdm (user-session is already set)"
 echo "2. Press Super + / for keybindings"
-echo "3. App phases: ./run.sh --full"
 echo "   Install log: $LOG_FILE"

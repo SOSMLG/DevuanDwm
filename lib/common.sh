@@ -3,7 +3,7 @@
 # Grafted from devuan-wm-setup (priv/install_pkgs/backup guards) and
 # DebianSway (log_head/start_service/verify_download) so every step
 # speaks the same doas-first, apt-cache-checked language. Sourced by
-# run.sh and each steps/##-*.sh. No side effects at source time.
+# install.sh and each steps/##-*.sh. No side effects at source time.
 
 # Double-source guard — steps re-source defensively; skip the re-run.
 [ -n "${DEBSWAY_COMMON_SOURCED:-}" ] && return 0
@@ -81,7 +81,7 @@ run_as_user() {
 # --- user interaction ------------------------------------------------------
 
 # ask() — "Y/n" (default Y) or "y/N" (default N). With DEBSWAY_ASSUME_YES
-# set (run.sh --yes / install.sh) the default is taken without prompting.
+# set (install.sh --yes / install.sh) the default is taken without prompting.
 ask() {
     local prompt="$1" default="${2:-Y}" reply
     local hint="(Y/n)"
@@ -134,7 +134,7 @@ install_pkgs() {
     return 0
 }
 
-# apt_update — refresh package lists exactly once per run. run.sh updates
+# apt_update — refresh package lists exactly once per run. install.sh updates
 # once up front and exports DEBSWAY_SKIP_APT_UPDATE=1 so per-step refreshes
 # become no-ops; standalone step runs still refresh here.
 apt_update() {
